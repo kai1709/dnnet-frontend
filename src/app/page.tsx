@@ -1,7 +1,7 @@
+'use client'
+
 const HomePage = () => {
-  return (
-    <div>Home</div>
-  )
+  return <div className='text-section-header h-[100px]'>Home Page</div>
 }
 
-export default HomePage;
+export default HomePage

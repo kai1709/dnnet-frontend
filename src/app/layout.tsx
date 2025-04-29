@@ -1,29 +1,35 @@
-import '@/styles/globals.css';
+import '@/styles/globals.css'
 
-import { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ReactNode } from 'react';
+import { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { ReactNode } from 'react'
 
-import { MainProvider } from '@/components/providers/MainProvider';
-import { MainLayout } from '@/components/templates/MainLayout';
+import { MainProvider } from '@/components/providers/MainProvider'
+import { MainLayout } from '@/components/templates/MainLayout'
 
-import { cn } from '@/lib/utils';
+import { cookies } from 'next/headers'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-primary' });
+import { cn } from '@/lib/utils'
+import { THEME_LAYOUT } from '@/constants/keys'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-primary' })
 
 export const metadata: Metadata = {
   title: 'Home',
   description: ''
-};
-
-interface RootLayoutProps {
-  children: ReactNode;
 }
 
-const RootLayout = ({ children }: RootLayoutProps) => {
+interface RootLayoutProps {
+  children: ReactNode
+}
+
+const RootLayout = async ({ children }: RootLayoutProps) => {
+  const cookieStore = await cookies()
+  const theme = cookieStore.get(THEME_LAYOUT)?.value || ''
+
   return (
-    <html lang="en">
-      <body className={cn(inter.variable, 'font-primary')} suppressHydrationWarning>
+    <html lang='en' className={theme}>
+      <body className={cn(inter.variable, 'bg-grey-1 font-primary')} suppressHydrationWarning>
         <MainProvider>
           <MainLayout>
             <main>{children}</main>
@@ -31,7 +37,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         </MainProvider>
       </body>
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

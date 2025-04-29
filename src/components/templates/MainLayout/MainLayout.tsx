@@ -1,21 +1,28 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
+import ThemeSwitcher from '@/components/components/ThemeSwitcher'
 
 interface MainLayoutProps {
-  children: ReactNode;
-  className?: string;
+  children: ReactNode
+  className?: string
 }
-
 
 // This is the place responsible for wrapping your app.
 // Add here components like Footer, Nav etc.
 export const MainLayout = ({ children, className }: MainLayoutProps) => {
-  const wrapperStyles = cn('flex flex-col min-h-screen', className);
-
   return (
-    <div className={wrapperStyles}>
-      {/* <header className="bg-slate-900 p-4">
+    <div className={cn('flex flex-col', className)}>
+      <div className='bg-main-background mx-auto min-h-screen w-full max-w-[1280px] px-4'>
+        <ThemeSwitcher />
+        <main className='flex-1'>{children}</main>
+      </div>
+    </div>
+  )
+}
+
+{
+  /* <header className="bg-slate-900 p-4">
         <ul className="flex items-center gap-10 text-gray-50">
           {links.map(({ slug, label }) => (
             <li key={slug}>
@@ -25,8 +32,5 @@ export const MainLayout = ({ children, className }: MainLayoutProps) => {
             </li>
           ))}
         </ul>
-      </header> */}
-      <main className="flex-1">{children}</main>
-    </div>
-  );
-};
+      </header> */
+}
