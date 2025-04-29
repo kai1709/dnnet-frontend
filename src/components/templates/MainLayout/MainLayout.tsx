@@ -13,7 +13,7 @@ interface MainLayoutProps {
 export const MainLayout = ({ children, className }: MainLayoutProps) => {
   return (
     <div className={cn('flex flex-col', className)}>
-      <div className='bg-main-background mx-auto min-h-screen w-full max-w-[1280px] px-4'>
+      <div className='bg-main-background mx-auto min-h-screen w-full max-w-[1280px]'>
         <ThemeSwitcher />
         <main className='flex-1'>{children}</main>
       </div>

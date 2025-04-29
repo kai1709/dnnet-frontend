@@ -9,7 +9,7 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <div className='flex cursor-pointer flex-col gap-4 md:flex-row'>
+    <div className='text flex cursor-pointer flex-col gap-4 md:flex-row'>
       <div className='' onClick={() => toggleTheme('')}>
         switch to light (:root)
       </div>
