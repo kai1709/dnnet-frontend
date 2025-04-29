@@ -12,7 +12,7 @@ interface MainLayoutProps {
 // Add here components like Footer, Nav etc.
 export const MainLayout = ({ children, className }: MainLayoutProps) => {
   return (
-    <div className={cn('flex flex-col', className)}>
+    <div className={cn('', className)}>
       <div className='bg-main-background mx-auto min-h-screen w-full max-w-[1280px]'>
         <ThemeSwitcher />
         <main className='flex-1'>{children}</main>

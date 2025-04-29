@@ -21,6 +21,19 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
+      fontSize: {
+        tiny: '0.625rem', // 10px
+        xs: '0.75rem', // 12px
+        sm: '0.875rem', // 14px
+        base: '1rem', // 16px
+        lg: '1.125rem', // 18px
+        xl: '1.25rem', // 20px
+        '2xl': '1.5rem', // 24px
+        xxl: '1.75rem', // 28px
+        '3xl': '1.875rem', // 30px
+        '4xl': '2.25rem', // 36px
+        '5xl': '3rem' // 48px
+      },
       colors: {
         navi: 'var(--navi)',
         'grey-1': 'var(--grey-1)',
@@ -30,6 +43,7 @@ module.exports = {
         'head-line-title': 'var(--head-line-title)',
         'section-header': 'var(--section-header)',
         'section-header': 'var(--section-header)',
+        'section-header-background': 'var(--section-header-background)',
         paragraph: 'var(--paragraph)',
         white: 'var(--white)',
         'section-border': 'var(--section-border)'

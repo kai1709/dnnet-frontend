@@ -1,6 +1,4 @@
-import IconHome from '@/components/components/icons/IconHome'
-import ThoiSu from '@/components/home/ThoiSu'
-import TinVan from '@/components/home/TinVan'
+import React from 'react'
 
 const dsTinVan = [
   {
@@ -21,25 +19,25 @@ const dsTinVan = [
   }
 ]
 
-const HomePage = () => {
+const TinVan = () => {
   return (
-    <div className=''>
-      <div className='flex items-center gap-2 p-4'>
-        <IconHome className='text-head-line' />
-        <h1 className='text-head-line text-sm font-bold'>Trang chủ</h1>
-      </div>
-      <div className='flex flex-col gap-1 md:flex-row'>
-        <div className='flex-1'>
-          <ThoiSu />
-          <div>Kinh Doanh</div>
-        </div>
-        <div className='flex-1'>
-          <TinVan />
-          <div>Quảng Cáo</div>
-        </div>
+    <div>
+      <div className='text-section-header bg-section-header-background p-4 text-lg font-bold'>TIN VẮN</div>
+      <div className='bg-section-border'>
+        {dsTinVan.map((item: any, index: number) => {
+          return (
+            <div
+              key={index}
+              className='border-t-head-line flex items-center gap-1 border-t-[2px] px-4 py-4 font-medium'
+            >
+              <div className='text-head-line w-[30%]'>{item?.label}</div>
+              <div className='text-section-high-light flex-1'>{item?.description}</div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )
 }
 
-export default HomePage
+export default TinVan
