@@ -5,13 +5,13 @@ import Cookies from 'js-cookie'
 const ThemeSwitcher = () => {
   const toggleTheme = (value: string) => {
     Cookies.set('THEME_LAYOUT', value, { expires: 365 * 10 })
-    window.location.reload()
+    document.documentElement.className = value
   }
 
   return (
-    <div className='flex flex-col gap-4 md:flex-row'>
+    <div className='flex cursor-pointer flex-col gap-4 md:flex-row'>
       <div className='' onClick={() => toggleTheme('')}>
-        switch to light
+        switch to light (:root)
       </div>
       <div className='' onClick={() => toggleTheme('dark')}>
         switch to dark
