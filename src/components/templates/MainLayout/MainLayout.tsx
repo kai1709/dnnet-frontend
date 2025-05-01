@@ -1,25 +1,26 @@
-import { ReactNode } from 'react'
+import { ReactNode } from "react";
 
-import { cn } from '@/lib/utils'
-import ThemeSwitcher from '@/components/components/ThemeSwitcher'
+import { cn } from "@/lib/utils";
+import Header from "@/components/components/Header";
 
 interface MainLayoutProps {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }
 
 // This is the place responsible for wrapping your app.
 // Add here components like Footer, Nav etc.
 export const MainLayout = ({ children, className }: MainLayoutProps) => {
   return (
-    <div className={cn('', className)}>
-      <div className='bg-main-background mx-auto min-h-screen w-full max-w-[1280px]'>
-        <ThemeSwitcher />
-        <main className='flex-1'>{children}</main>
+    <div className={cn("", className)}>
+      <div className="bg-main-background mx-auto min-h-screen w-full max-w-[1280px]">
+        {/* <ThemeSwitcher /> */}
+        <Header />
+        <main className="flex-1">{children}</main>
       </div>
     </div>
-  )
-}
+  );
+};
 
 {
   /* <header className="bg-slate-900 p-4">

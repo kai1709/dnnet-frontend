@@ -1,10 +1,10 @@
-import { Button } from '../../components/components/ui/button'
+import { Button } from "../../components/components/ui/button";
 
 const Home = () => {
   return (
     <div>
       <Button>Click me1</Button>
     </div>
-  )
-}
-export default Home
+  );
+};
+export default Home;

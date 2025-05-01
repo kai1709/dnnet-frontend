@@ -1,53 +1,58 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class'],
-  mode: 'jit',
-  content: ['./src/app/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ["class"],
+  mode: "jit",
+  content: [
+    "./src/app/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     screens: {
-      xs: '576',
-      sm: '640px',
-      md: '768px',
-      lg: '1280px',
-      xl: '1440px',
-      '2xl': '1600px',
-      '3xl': '1920px'
+      xs: "576",
+      sm: "640px",
+      md: "768px",
+      lg: "1280px",
+      xl: "1440px",
+      "2xl": "1600px",
+      "3xl": "1920px",
     },
     extend: {
       fontFamily: {
-        primary: ['var(--font-primary)']
+        primary: ["var(--font-primary)"],
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontSize: {
-        tiny: '0.625rem', // 10px
-        xs: '0.75rem', // 12px
-        sm: '0.875rem', // 14px
-        base: '1rem', // 16px
-        lg: '1.125rem', // 18px
-        xl: '1.25rem', // 20px
-        '2xl': '1.5rem', // 24px
-        xxl: '1.75rem', // 28px
-        '3xl': '1.875rem', // 30px
-        '4xl': '2.25rem', // 36px
-        '5xl': '3rem' // 48px
+        tiny: "0.625rem", // 10px
+        xs: "0.75rem", // 12px
+        sm: "0.875rem", // 14px
+        base: "1rem", // 16px
+        lg: "1.125rem", // 18px
+        xl: "1.25rem", // 20px
+        "2xl": "1.5rem", // 24px
+        xxl: "1.75rem", // 28px
+        "3xl": "1.875rem", // 30px
+        "4xl": "2.25rem", // 36px
+        "5xl": "3rem", // 48px
       },
       colors: {
-        navi: 'var(--navi)',
-        'grey-1': 'var(--grey-1)',
-        'main-background': 'var(--main-background)',
-        'head-line': 'var(--head-line)',
-        'section-high-light': 'var(--section-high-light)',
-        'head-line-title': 'var(--head-line-title)',
-        'section-header': 'var(--section-header)',
-        'section-header': 'var(--section-header)',
-        'section-header-background': 'var(--section-header-background)',
-        paragraph: 'var(--paragraph)',
-        white: 'var(--white)',
-        'section-border': 'var(--section-border)'
+        navi: "var(--navi)",
+        "grey-1": "var(--grey-1)",
+        "grey-2": "var(--grey-2)",
+        "light-grey": "var(--light-grey)",
+        "main-background": "var(--main-background)",
+        "head-line": "var(--head-line)",
+        "section-high-light": "var(--section-high-light)",
+        "head-line-title": "var(--head-line-title)",
+        "section-header": "var(--section-header)",
+        "section-header": "var(--section-header)",
+        "section-header-background": "var(--section-header-background)",
+        paragraph: "var(--paragraph)",
+        white: "var(--white)",
+        "section-border": "var(--section-border)",
         // background: 'hsl(var(--background))',
         // foreground: 'hsl(var(--foreground))',
         // card: {
@@ -88,12 +93,12 @@ module.exports = {
         //   4: 'hsl(var(--chart-4))',
         //   5: 'hsl(var(--chart-5))'
         // }
-      }
-    }
+      },
+    },
   },
   safelist: [{ pattern: /grid-cols-.+/ }],
   variants: {
-    extend: {}
+    extend: {},
   },
-  plugins: [require('tailwind-scrollbar'), require('tailwindcss-animate')]
-}
+  plugins: [require("tailwind-scrollbar"), require("tailwindcss-animate")],
+};
