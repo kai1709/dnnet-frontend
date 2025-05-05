@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react'
 import React from 'react'
 
 const dsTinVan = [
@@ -35,6 +36,12 @@ const TinVan = () => {
             </div>
           )
         })}
+      </div>
+      <div className='flex items-center justify-between p-2'>
+        <div className='text-sm font-medium text-head-line'>Các tin trên đây được tóm tắt bởi AI. </div>
+        <div className='flex cursor-pointer items-center justify-end gap-1 text-sm text-head-line'>
+          Xem tiếp <ChevronRight />
+        </div>
       </div>
     </div>
   )

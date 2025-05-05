@@ -40,6 +40,7 @@ const NewsDetail = async ({ params }: any) => {
 
       <div className='p-4'>
         <div className='text-xl font-bold text-head-line-title'>{detail?.title}</div>
+        <div className='mt-4 whitespace-pre-line text-section-high-light'>{detail?.short_summary}</div>
         {!!detail?.json_base64_image?.image_base64 && (
           <div className='relative'>
             <img

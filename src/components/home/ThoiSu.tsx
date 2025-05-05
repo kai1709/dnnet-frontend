@@ -14,7 +14,7 @@ const ThoiSu = async ({ mainNews, subNews }: any) => {
         <div className='text-lg font-bold text-head-line'>{mainNews?.country?.name}</div>
         <div className='flex gap-4'>
           <div className='h-[320px] flex-1 md:h-[230px]'>
-            <Link href={`${mainSlug}`} className='h-full'>
+            <Link href={`${mainSlug}`} className='h-full' prefetch>
               <img
                 src={mainNews?.json_base64_image?.image_base64}
                 alt={mainNews?.json_base64_image?.title}
@@ -54,7 +54,7 @@ const ThoiSu = async ({ mainNews, subNews }: any) => {
           return (
             <div key={index} className={cn(isLast && 'hidden md:block')}>
               <div className='text-lg font-bold text-head-line'>{item?.country?.name}</div>
-              <Link href={`/${slug}`}>
+              <Link href={`/${slug}`} prefetch>
                 <img
                   src={item?.json_base64_image?.image_base64}
                   alt={item?.json_base64_image?.title}
