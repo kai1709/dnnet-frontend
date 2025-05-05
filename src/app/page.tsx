@@ -12,11 +12,13 @@ export const generateMetadata = () => {
 
 const HomePage = async () => {
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
-  let news = res?.data || []
-  news = [...news, ...news, ...news, ...news]
-  const mainNews = news[0]
-  const subNews = news.slice(1, 4)
-  // console.log({ news })
+  const news = res?.data || []
+  const listTinVan = news.filter((v: any) => !v?.is_homepage).slice(0, 6)
+  const topNews = news.find((v: any) => v?.is_topnews)
+  const subTopNews = news.filter((v: any) => v?.is_homepage && !v?.is_topnews)
+  const mainNews = topNews
+  const subNews = subTopNews.slice(0, 3)
+  // console.log({ news, listTinVan, topNews, subTopNews })
   const listRaoVat = [
     {
       title: `Nhà cửa, đất đai`,
@@ -91,16 +93,12 @@ const HomePage = async () => {
           <IconHome className='text-head-line' />
           <h1 className='text-sm font-bold text-head-line'>Trang chủ</h1>
         </div>
-        <div className='flex flex-col gap-1 md:flex-row'>
+        <div className='flex flex-col flex-wrap gap-1 pb-10 md:flex-row'>
           <div className='flex-1'>
             <ThoiSu mainNews={mainNews} subNews={subNews} />
-          </div>
-          <div className='flex-1'>
-            <TinVan />
-          </div>
-        </div>
-        <div className='flex flex-col flex-wrap pb-10 md:flex-row'>
-          <div className='flex-1'>
+            <div className='block md:hidden'>
+              <TinVan listTinVan={listTinVan} />
+            </div>
             <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>Kinh Doanh</div>
 
             <div className='px-4 py-2'>
@@ -205,6 +203,9 @@ const HomePage = async () => {
             </div>
           </div>
           <div className='flex-1'>
+            <div className='hidden md:block'>
+              <TinVan listTinVan={listTinVan} />
+            </div>
             <div className='advertise'></div>
             <div>
               <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>

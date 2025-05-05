@@ -12,21 +12,21 @@ const ThoiSu = async ({ mainNews, subNews }: any) => {
       <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>THỜI SỰ</div>
       <div className='px-4 py-2'>
         <div className='text-lg font-bold text-head-line'>{mainNews?.country?.name}</div>
-        <div className='flex gap-4'>
-          <div className='h-[320px] flex-1 md:h-[230px]'>
+        <div className='flex gap-4' title={mainNews?.title}>
+          <div className='h-auto flex-1 md:h-[230px]'>
             <Link href={`${mainSlug}`} className='h-full' prefetch>
               <img
                 src={mainNews?.json_base64_image?.image_base64}
                 alt={mainNews?.json_base64_image?.title}
-                className='h-full object-cover'
+                className='w-full object-cover md:h-full'
               />
             </Link>
           </div>
           <div className='flex flex-1 flex-col justify-between'>
-            <div className='text-xl font-bold text-head-line-title'>
+            <div className='line-clamp-3 text-xl font-bold text-head-line-title md:line-clamp-5'>
               <Link href={`${mainSlug}`}>{mainNews?.title}</Link>
             </div>
-            <div className='text-base font-bold text-head-line'>
+            <div className='mt-1 text-base font-bold text-head-line'>
               <div>
                 Nguồn:{' '}
                 <a href={mainNews?.source_url} target='_blank' rel='noopener noreferrer'>
@@ -52,16 +52,20 @@ const ThoiSu = async ({ mainNews, subNews }: any) => {
           const slug = `${formatTitleToSlug(item?.title)}-${item?.id}`
 
           return (
-            <div key={index} className={cn(isLast && 'hidden md:block')}>
+            <div key={index} className={cn(isLast && 'hidden md:block')} title={item?.title}>
               <div className='text-lg font-bold text-head-line'>{item?.country?.name}</div>
-              <Link href={`/${slug}`} prefetch>
+              <Link href={`/${slug}`} prefetch className=''>
                 <img
                   src={item?.json_base64_image?.image_base64}
                   alt={item?.json_base64_image?.title}
-                  className='w-full'
+                  className='h-[125px] w-full'
                 />
-                <div className='py-4 text-section-high-light'>{item?.title}</div>
               </Link>
+              <div className='py-4 text-section-high-light'>
+                <Link href={`/${slug}`} prefetch className='line-clamp-5'>
+                  {item?.title}
+                </Link>
+              </div>
               <div className='mb-4 text-base font-bold text-head-line'>
                 <div>
                   Nguồn:{' '}

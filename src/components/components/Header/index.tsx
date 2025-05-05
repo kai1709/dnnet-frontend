@@ -29,7 +29,7 @@ const Header = () => {
         <MenuIcon />
       </div>
       <div className='flex flex-1 items-center justify-center text-center'>
-        <Link href='/'>
+        <Link href='/' prefetch>
           <img src='/logo.png' className='hidden md:block' />
           <img src='/logo-mobile.png' className='block md:hidden' />
         </Link>
