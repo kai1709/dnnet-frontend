@@ -1,12 +1,9 @@
 import IconHome from '@/components/components/icons/IconHome'
 import ThoiSu from '@/components/home/ThoiSu'
 import TinVan from '@/components/home/TinVan'
-import {
-  createMetadata
-  //  formatTitleToSlug
-} from '@/components/lib/utils'
-// import { endPoints } from '@/services/endpoints'
-// import { fetcherAPI } from '@/services/fetcher'
+import { createMetadata } from '@/components/lib/utils'
+import { endPoints } from '@/services/endpoints'
+import { fetcherAPI } from '@/services/fetcher'
 import { Heart, MessageSquare, ChevronRight } from 'lucide-react'
 
 export const generateMetadata = () => {
@@ -14,12 +11,11 @@ export const generateMetadata = () => {
 }
 
 const HomePage = async () => {
-  // const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
-  // let news = res?.data || []
-  // news = [...news, ...news, ...news, ...news]
-  // const mainNews = news[0]
-  // const mainSlug = `${formatTitleToSlug(mainNews?.title)}-${mainNews?.id}`
-  // const subNews = news.slice(1, 4)
+  const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
+  let news = res?.data || []
+  news = [...news, ...news, ...news, ...news]
+  const mainNews = news[0]
+  const subNews = news.slice(1, 4)
   // console.log({ news })
   const listRaoVat = [
     {
@@ -97,7 +93,7 @@ const HomePage = async () => {
         </div>
         <div className='flex flex-col gap-1 md:flex-row'>
           <div className='flex-1'>
-            <ThoiSu />
+            <ThoiSu mainNews={mainNews} subNews={subNews} />
           </div>
           <div className='flex-1'>
             <TinVan />

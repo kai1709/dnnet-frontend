@@ -1,19 +1,11 @@
-import { endPoints } from '@/services/endpoints'
-import { fetcherAPI } from '@/services/fetcher'
 import { Heart, MessageSquare } from 'lucide-react'
 import React from 'react'
 import Link from 'next/link'
 import { formatTitleToSlug } from '../lib/utils'
 import { cn } from '@/lib/utils'
 
-const ThoiSu = async () => {
-  // const isMobile = await getDevice()
-  const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
-  let news = res?.data || []
-  news = [...news, ...news, ...news, ...news]
-  const mainNews = news[0]
+const ThoiSu = async ({ mainNews, subNews }: any) => {
   const mainSlug = `${formatTitleToSlug(mainNews?.title)}-${mainNews?.id}`
-  const subNews = news.slice(1, 4)
 
   return (
     <div className='flex-1 pb-4'>

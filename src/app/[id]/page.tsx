@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: any) {
 
   return createMetadata({
     title: detail?.title,
-    description: detail?.short_summary
+    description: detail?.short_summary,
+    image: detail?.json_base64_image?.image_base64
   })
 }
 
