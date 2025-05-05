@@ -3,17 +3,18 @@ import { fetcherAPI } from '@/services/fetcher'
 import { Heart, MessageSquare } from 'lucide-react'
 import React from 'react'
 import Link from 'next/link'
-import { formatTitleToSlug, getDevice } from '../lib/utils'
+import { formatTitleToSlug } from '../lib/utils'
 import { cn } from '@/lib/utils'
 
 const ThoiSu = async () => {
-  const isMobile = await getDevice()
+  // const isMobile = await getDevice()
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
   let news = res?.data || []
   news = [...news, ...news, ...news, ...news]
   const mainNews = news[0]
   const mainSlug = `${formatTitleToSlug(mainNews?.title)}-${mainNews?.id}`
-  let subNews = news.slice(1, 4)
+  const subNews = news.slice(1, 4)
+
   return (
     <div className='flex-1 pb-4'>
       <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>THỜI SỰ</div>
@@ -57,6 +58,7 @@ const ThoiSu = async () => {
         {subNews?.map((item: any, index: number) => {
           const isLast = index === subNews.length - 1
           const slug = `${formatTitleToSlug(item?.title)}-${item?.id}`
+
           return (
             <div key={index} className={cn(isLast && 'hidden md:block')}>
               <div className='text-lg font-bold text-head-line'>{item?.country?.name}</div>

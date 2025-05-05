@@ -5,26 +5,28 @@ import React from 'react'
 import { Heart, MessageSquare, Info } from 'lucide-react'
 import { createMetadata, getIdFromSlug } from '@/components/lib/utils'
 
-type Props = {
-  params: { id: string }
-}
+// type PageProps = {
+//   params: { id: string }
+// }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: any) {
   const resolvedParams = await params
   const newId = getIdFromSlug(resolvedParams.id)
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name`)
   const detail = res?.data
+
   return createMetadata({
     title: detail?.title,
     description: detail?.short_summary
   })
 }
 
-const NewsDetail = async ({ params }: Props) => {
+const NewsDetail = async ({ params }: any) => {
   const resolvedParams = await params
   const newId = getIdFromSlug(resolvedParams?.id)
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name`)
   const detail = res?.data
+
   return (
     <div>
       <div className='flex items-center gap-2 p-4'>

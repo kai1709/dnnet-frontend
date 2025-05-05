@@ -6,8 +6,8 @@ const Footer = () => {
     <div className='bg-[#555]'>
       <div className='p-4'>
         <Link href='/'>
-          <img src='/logo.png' className='hidden md:block' />
-          <img src='/logo-mobile.png' className='block md:hidden' />
+          <img src='/logo.png' className='hidden md:block' alt='logo' />
+          <img src='/logo-mobile.png' className='block md:hidden' alt='logo mobile' />
         </Link>
       </div>
       <div className='h-[100px] text-center text-sm text-[#fff]'>Menu - Liên hệ</div>

@@ -1,9 +1,12 @@
 import IconHome from '@/components/components/icons/IconHome'
 import ThoiSu from '@/components/home/ThoiSu'
 import TinVan from '@/components/home/TinVan'
-import { createMetadata, formatTitleToSlug } from '@/components/lib/utils'
-import { endPoints } from '@/services/endpoints'
-import { fetcherAPI } from '@/services/fetcher'
+import {
+  createMetadata
+  //  formatTitleToSlug
+} from '@/components/lib/utils'
+// import { endPoints } from '@/services/endpoints'
+// import { fetcherAPI } from '@/services/fetcher'
 import { Heart, MessageSquare, ChevronRight } from 'lucide-react'
 
 export const generateMetadata = () => {
@@ -11,13 +14,13 @@ export const generateMetadata = () => {
 }
 
 const HomePage = async () => {
-  const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
-  let news = res?.data || []
-  news = [...news, ...news, ...news, ...news]
-  const mainNews = news[0]
-  const mainSlug = `${formatTitleToSlug(mainNews?.title)}-${mainNews?.id}`
-  let subNews = news.slice(1, 4)
-  console.log({ news })
+  // const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
+  // let news = res?.data || []
+  // news = [...news, ...news, ...news, ...news]
+  // const mainNews = news[0]
+  // const mainSlug = `${formatTitleToSlug(mainNews?.title)}-${mainNews?.id}`
+  // const subNews = news.slice(1, 4)
+  // console.log({ news })
   const listRaoVat = [
     {
       title: `Nhà cửa, đất đai`,
@@ -84,6 +87,7 @@ const HomePage = async () => {
       content: `Cần chuyển nhượng cửa hàng bán thực phẩm tại Praha.`
     }
   ]
+
   return (
     <>
       <div className=''>
@@ -107,7 +111,7 @@ const HomePage = async () => {
               <div className='text-lg font-bold text-head-line'>Trao Đổi</div>
               <div className='mt-1 flex gap-4'>
                 <div className='flex-1'>
-                  <img src='/news-2.png' className='w-full' />
+                  <img src='/news-2.png' className='w-full' alt='' />
                 </div>
                 <div className='flex flex-1 flex-col justify-between'>
                   <div className='text-xl font-bold text-head-line-title'>

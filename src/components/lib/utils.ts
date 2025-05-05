@@ -1,17 +1,16 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { headers } from 'next/headers'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
 export const getDevice = () => {
-  return new Promise(async resolve => {
-    const headersList = await headers()
-    const isMobile = headersList.get('x-is-mobile') === 'true'
-    resolve(isMobile)
-  })
+  // return new Promise(async resolve => {
+  //   const headersList = await headers()
+  //   const isMobile = headersList.get('x-is-mobile') === 'true'
+  //   resolve(isMobile)
+  // })
 }
 
 export const createMetadata = ({
@@ -47,5 +46,6 @@ export const formatTitleToSlug = (title: string) => {
 
 export const getIdFromSlug = (slug: string) => {
   const arr = slug.split('-')
+
   return arr[arr.length - 1]
 }
