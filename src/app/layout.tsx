@@ -1,6 +1,5 @@
 import '@/styles/globals.css'
 
-import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 
@@ -13,11 +12,6 @@ import { cn } from '@/lib/utils'
 import { THEME_LAYOUT } from '@/constants/keys'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-primary' })
-
-export const metadata: Metadata = {
-  title: 'Home',
-  description: ''
-}
 
 interface RootLayoutProps {
   children: ReactNode
