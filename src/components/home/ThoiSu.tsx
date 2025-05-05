@@ -58,7 +58,7 @@ const ThoiSu = async ({ mainNews, subNews }: any) => {
                 <img
                   src={item?.json_base64_image?.image_base64}
                   alt={item?.json_base64_image?.title}
-                  className='h-[125px] w-full'
+                  className='h-[125px] w-full object-cover'
                 />
               </Link>
               <div className='py-4 text-section-high-light'>
