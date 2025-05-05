@@ -3,6 +3,7 @@ import { Drawer, Radio } from "antd";
 import Cookies from "js-cookie";
 import { MenuIcon, User } from "lucide-react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const themes = ["", "dark", "light-1", "light-2"];
 const Header = () => {
@@ -31,7 +32,10 @@ const Header = () => {
         <MenuIcon />
       </div>
       <div className="flex-1 text-center flex items-center justify-center">
-        <img src="/logo.png" />
+        <Link href="/">
+          <img src="/logo.png" className="hidden md:block" />
+          <img src="/logo-mobile.png" className="block md:hidden" />
+        </Link>
       </div>
       <div
         className="cursor-pointer text-head-line"

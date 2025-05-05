@@ -9,6 +9,8 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/constants/*": ["./src/constants/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/contexts/*": ["./src/contexts/*"],
       "@/mocks/*": ["./__mocks__/*"],
       "@/tests/*": ["./.jest/*"]
     },
