@@ -1,5 +1,6 @@
 import IconHome from '@/components/components/icons/IconHome'
 import ThoiSu from '@/components/home/ThoiSu'
+import TinTuc from '@/components/home/TinTuc'
 import TinVan from '@/components/home/TinVan'
 import { createMetadata } from '@/components/lib/utils'
 import { endPoints } from '@/services/endpoints'
@@ -99,6 +100,7 @@ const HomePage = async () => {
             <div className='block md:hidden'>
               <TinVan listTinVan={listTinVan} />
             </div>
+            <TinTuc mainNews={mainNews} subNews={subNews} />
             <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>Kinh Doanh</div>
 
             <div className='px-4 py-2'>
