@@ -62,10 +62,10 @@ const TinTuc = async ({ listTinTuc = [] }: any) => {
               <div className='flex-1'>
                 <Link href={`/${slug}`} prefetch className=''>
                   <div>
-                    <div className='line-clamp-2 text-sm font-bold text-head-line md:line-clamp-3 md:text-base'>
+                    {/* <div className='line-clamp-2 text-sm font-bold text-head-line md:line-clamp-3 md:text-base'>
                       {item?.title}
-                    </div>
-                    <div className='mt-2 line-clamp-2 text-sm text-section-high-light md:line-clamp-3'>
+                    </div> */}
+                    <div className='line-clamp-5 text-sm text-section-high-light md:line-clamp-5'>
                       {item?.short_summary || item?.long_summary}
                     </div>
                   </div>

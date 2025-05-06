@@ -14,13 +14,11 @@ export const generateMetadata = () => {
 const HomePage = async () => {
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
   const news = res?.data || []
-  const listTinVan = news.filter((v: any) => !v?.is_homepage).slice(0, 6)
-  const topNews = news.find((v: any) => v?.is_topnews)
-  const listTinTuc = news.filter((v: any) => v?.is_topnews)
-  const subTopNews = news.filter((v: any) => v?.is_homepage && !v?.is_topnews)
-  const mainNews = topNews
-  const subNews = subTopNews.slice(0, 3)
-  // console.log({ news, listTinVan, topNews, subTopNews })
+  const listThoiSu = news.filter((v: any) => v?.is_topnews)
+  const listNotTopNews = news.filter((v: any) => !v?.is_topnews)
+  const listTinVan = listNotTopNews.slice(0, 6)
+  const listTinTuc = listNotTopNews.filter((v: any) => !listTinVan?.find((item: any) => item?.id === v?.id))
+  // console.log({ news, listTinVan, listThoiSu, listTinTuc })
   const listRaoVat = [
     {
       title: `Nhà cửa, đất đai`,
@@ -97,7 +95,7 @@ const HomePage = async () => {
         </div>
         <div className='flex flex-col flex-wrap gap-1 pb-10 md:flex-row'>
           <div className='flex-1'>
-            <ThoiSu mainNews={mainNews} subNews={subNews} />
+            <ThoiSu listThoiSu={listThoiSu} />
             <div className='block md:hidden'>
               <TinVan listTinVan={listTinVan} />
             </div>
