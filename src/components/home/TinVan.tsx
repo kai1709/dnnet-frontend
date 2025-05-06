@@ -19,7 +19,9 @@ const TinVan = ({ listTinVan }: any) => {
                 className='line-clamp-5 flex items-center gap-1 border-t-[2px] border-t-head-line px-4 py-4 font-medium'
               >
                 <div className='w-[30%] text-head-line'>{item?.news_source?.name}</div>
-                <div className='line-clamp-5 flex-1 text-section-high-light'>{item?.title}</div>
+                <div className='line-clamp-5 flex-1 text-section-high-light'>
+                  {item?.short_summary || item?.long_summary}
+                </div>
               </Link>
             </div>
           )

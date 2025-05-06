@@ -30,7 +30,7 @@ const Header = () => {
       </div>
       <div className='flex flex-1 items-center justify-center text-center'>
         <Link href='/' prefetch>
-          <img src='/logo.png' className='hidden md:block' />
+          <img src='/logo.png' className='hidden w-[220px] md:block' />
           <img src='/logo-mobile.png' className='block md:hidden' />
         </Link>
       </div>

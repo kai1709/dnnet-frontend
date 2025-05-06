@@ -14,8 +14,8 @@ export const getDevice = () => {
 }
 
 export const createMetadata = ({
-  title = 'DNnet.eu - Mạng doanh nghiệp',
-  description = 'DNnet.eu - Mạng doanh nghiệp',
+  title = 'DNnet.eu - Kết nối doanh nghiệp',
+  description = 'DNnet.eu - Kết nối doanh nghiệp',
   canonical = '',
   image = '/logo.png'
 }) => ({
