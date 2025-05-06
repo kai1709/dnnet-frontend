@@ -17,7 +17,7 @@ export const createMetadata = ({
   title = 'DNnet.eu - Kết nối doanh nghiệp',
   description = 'DNnet.eu - Kết nối doanh nghiệp',
   canonical = '',
-  image = '/logo-1.png'
+  image = '/logo-1.png?v=2'
 }) => ({
   title,
   description,
