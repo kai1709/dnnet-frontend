@@ -16,6 +16,7 @@ const HomePage = async () => {
   const news = res?.data || []
   const listTinVan = news.filter((v: any) => !v?.is_homepage).slice(0, 6)
   const topNews = news.find((v: any) => v?.is_topnews)
+  const listTinTuc = news.filter((v: any) => v?.is_topnews)
   const subTopNews = news.filter((v: any) => v?.is_homepage && !v?.is_topnews)
   const mainNews = topNews
   const subNews = subTopNews.slice(0, 3)
@@ -100,7 +101,7 @@ const HomePage = async () => {
             <div className='block md:hidden'>
               <TinVan listTinVan={listTinVan} />
             </div>
-            <TinTuc mainNews={mainNews} subNews={subNews} />
+            <TinTuc listTinTuc={listTinTuc} />
             <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>Kinh Doanh</div>
 
             <div className='px-4 py-2'>

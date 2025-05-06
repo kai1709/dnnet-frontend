@@ -3,7 +3,8 @@ import React from 'react'
 import Link from 'next/link'
 import { formatTitleToSlug } from '../lib/utils'
 
-const TinTuc = async ({ mainNews, subNews }: any) => {
+const TinTuc = async ({ listTinTuc = [] }: any) => {
+  const [mainNews, ...subNews] = listTinTuc
   const mainSlug = `${formatTitleToSlug(mainNews?.title)}-${mainNews?.id}`
 
   return (
