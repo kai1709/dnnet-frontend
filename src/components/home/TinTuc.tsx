@@ -65,7 +65,8 @@ const TinTuc = async ({ listTinTuc = [] }: any) => {
                     {/* <div className='line-clamp-2 text-sm font-bold text-head-line md:line-clamp-3 md:text-base'>
                       {item?.title}
                     </div> */}
-                    <div className='line-clamp-3 text-sm text-section-high-light md:line-clamp-5'>
+                    <div className='font-bold text-head-line'>{item?.country?.name}</div>
+                    <div className='line-clamp-3 text-base text-section-high-light md:line-clamp-4'>
                       {item?.short_summary || item?.long_summary}
                     </div>
                   </div>
