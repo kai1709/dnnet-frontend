@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Input } from '../ui/input'
 import { ConfigProvider, Switch } from 'antd'
+import IconHome from '../icons/IconHome'
 
 const themes = ['', 'dark', 'light-1', 'light-2']
 const Header = () => {
@@ -24,24 +25,24 @@ const Header = () => {
 
   const HeaderContext = () => (
     <>
-      <div className='flex'>
+      <div className='flex items-center'>
         <Link href='/' prefetch>
           <img src='/logo-1.png' className='hidden w-[220px] md:block' />
           <img src='/logo-mobile.png' className='block md:hidden' />
         </Link>
       </div>
-      <div className='flex-1 px-4 items-center justify-center'>
-        <div className='flex bg-gray-bg rounded max-w-[400px] items-center px-3 py-2 m-auto'>
+      <div className='flex-1 items-center justify-center px-4'>
+        <div className='m-auto hidden max-w-[400px] items-center rounded bg-gray-bg px-3 py-2 md:flex'>
           <Search />
-          <Input className='rounded bg-gray-bg max-w-[400px] border-[0px] input-search' placeholder='Tìm kiếm' />
+          <Input className='input-search max-w-[400px] rounded border-[0px] bg-gray-bg' placeholder='Tìm kiếm' />
         </div>
       </div>
-      <div className='pr-8 cursor-pointer'><Globe className='text-text-primary' /></div>
+      <div className='cursor-pointer pr-8'>
+        <Globe className='text-text-primary' />
+      </div>
       <div className='flex cursor-pointer'>
         <User className='text-text-primary' />
-        <div className='ml-2 text-text-primary'>
-          Đăng ký / Đăng Nhập
-        </div>
+        <div className='ml-2 block hidden text-text-primary md:block'>Đăng ký / Đăng Nhập</div>
       </div>
       <div className='pl-4'>
         <ConfigProvider
@@ -50,14 +51,16 @@ const Header = () => {
               colorPrimary: '#C1272D'
             },
             components: {
-              Switch: {
-              },
-            },
+              Switch: {}
+            }
           }}
         >
-          <Switch defaultChecked={theme === ''} onClick={() => {
-            onSelectTheme(theme === 'dark' ? '' : 'dark')
-          }} />
+          <Switch
+            defaultChecked={theme === ''}
+            onClick={() => {
+              onSelectTheme(theme === 'dark' ? '' : 'dark')
+            }}
+          />
         </ConfigProvider>
       </div>
     </>
@@ -74,16 +77,43 @@ const Header = () => {
     document.documentElement.className = value
   }
 
+  const SubMenu = () => (
+    <div className='border-b-border-color flex items-center gap-8 border-b-[1px] p-4'>
+      <div className='flex cursor-pointer items-center'>
+        <IconHome className='icon-home' />
+        <h1 className='ml-2 text-text-primary'>Trang chủ</h1>
+      </div>
+      <div className='flex cursor-pointer items-center'>
+        <h1 className='text-text-primary'>Tin Tức</h1>
+      </div>
+      <div className='flex cursor-pointer items-center'>
+        <h1 className='text-text-primary'>Kinh Doanh</h1>
+      </div>
+      <div className='flex cursor-pointer items-center'>
+        <h1 className='text-text-primary'>Chuyên Mục</h1>
+      </div>
+      <div className='flex cursor-pointer items-center'>
+        <h1 className='text-text-primary'>Cộng Đồng</h1>
+      </div>
+    </div>
+  )
+
   return (
     <>
       <div
-        className={`flex w-full max-w-[1280px] items-center border-b-[1px] border-b-border-color bg-main-background px-6 py-4`}
+        className={`border-b-border-color w-full max-w-[1280px] items-center bg-main-background`}
         style={activeClass ? { position: 'fixed', zIndex: 999 } : { display: 'none' }}
       >
-        <HeaderContext />
+        <div className='flex items-center border-b-[1px] px-6 py-4'>
+          <HeaderContext />
+        </div>
+        <SubMenu />
       </div>
-      <div className={`flex items-center border-b-[1px] border-b-border-color px-6 py-4`}>
-        <HeaderContext />
+      <div className={`border-b-border-color items-center`}>
+        <div className='flex items-center border-b-[1px] px-6 py-4'>
+          <HeaderContext />
+        </div>
+        <SubMenu />
       </div>
     </>
   )

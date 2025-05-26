@@ -1,4 +1,3 @@
-import IconHome from '@/components/components/icons/IconHome'
 import IconRaoVatAmThuc from '@/components/components/icons/IconRaoVatAmThuc'
 import IconRaoVatDichVu from '@/components/components/icons/IconRaoVatDichVu'
 import IconRaoVatKinhDoanh from '@/components/components/icons/IconRaoVatKinhDoanh'
@@ -24,6 +23,7 @@ export const generateMetadata = () => {
 
 const HomePage = async () => {
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
+
   const news = res?.data || []
   const listThoiSu = news.filter((v: any) => v?.is_topnews)
   const listNotTopNews = news.filter((v: any) => !v?.is_topnews)
@@ -108,31 +108,26 @@ const HomePage = async () => {
 
   return (
     <>
-      <div className='text-[16px] items-center'>
-        <div className='flex items-center gap-8 p-4 border-b-[1px] border-b-border-color'>
-          <div className='flex items-center cursor-pointer'>
+      <div className='items-center text-[16px]'>
+        {/* <div className='border-b-border-color flex items-center gap-8 border-b-[1px] p-4'>
+          <div className='flex cursor-pointer items-center'>
             <IconHome className='icon-home' />
-            <h1 className='text-text-primary ml-2'>Trang chủ</h1>
+            <h1 className='ml-2 text-text-primary'>Trang chủ</h1>
           </div>
-          <div className='flex items-center cursor-pointer'>
-
+          <div className='flex cursor-pointer items-center'>
             <h1 className='text-text-primary'>Tin Tức</h1>
           </div>
-          <div className='flex items-center cursor-pointer'>
-
+          <div className='flex cursor-pointer items-center'>
             <h1 className='text-text-primary'>Kinh Doanh</h1>
           </div>
-          <div className='flex items-center cursor-pointer'>
-
+          <div className='flex cursor-pointer items-center'>
             <h1 className='text-text-primary'>Chuyên Mục</h1>
           </div>
-          <div className='flex items-center cursor-pointer'>
-
+          <div className='flex cursor-pointer items-center'>
             <h1 className='text-text-primary'>Cộng Đồng</h1>
           </div>
-
-        </div>
-        <div className='flex flex-col flex-wrap gap-4 pb-10 md:flex-row p-6 pt-8'>
+        </div> */}
+        <div className='flex flex-col flex-wrap gap-4 p-6 pb-10 pt-8 md:flex-row'>
           <div className='flex-1'>
             <ThoiSu listThoiSu={listThoiSu} />
             <div className='block md:hidden'>
@@ -141,8 +136,8 @@ const HomePage = async () => {
             <TinTuc listTinTuc={listTinTuc} />
             <HomeHeader title='Kinh Doanh' />
 
-            <div className='py-2 mb-4 '>
-              <div className='font-bold text-text-secondary mt-3 text-[16px]'>Trao Đổi</div>
+            <div className='mb-4 py-2'>
+              <div className='mt-3 text-[16px] font-bold text-text-secondary'>Trao Đổi</div>
               <div className='mt-1 flex gap-4'>
                 <div className='flex-1'>
                   <img src='/news-2.png' className='w-full' alt='' />
@@ -151,23 +146,28 @@ const HomePage = async () => {
                   <div className='text-[20px] font-bold text-text-primary'>
                     Khó khăn và tương lai của những ngành nghề đặc trưng của người Việt
                   </div>
-                  <div className='mt-1 text-base font-bold text-head-line flex mt-2'>
+                  <div className='mt-1 mt-2 flex text-base font-bold text-head-line'>
                     <div className='flex items-center'>
                       <img src='/09.png' />
-                      <a href="#" className='text-[14px] text-text-link ml-2 font-normal' target='_blank' rel='noopener noreferrer'>
+                      <a
+                        href='#'
+                        className='ml-2 text-[14px] font-normal text-text-link'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
                         iDnes.cz
                       </a>
                     </div>
-                    <div className='flex items-center ml-4 font-normal'>
+                    <div className='ml-4 flex items-center font-normal'>
                       <img src='/ai.png' />
                       <div className='ml-2 text-text-secondary'>AI</div>
                     </div>
                   </div>
-                  <div className='flex gap-3 text-base font-bold text-head-line mt-4'>
-                    <div className='flex gap-2 items-center'>
+                  <div className='mt-4 flex gap-3 text-base font-bold text-head-line'>
+                    <div className='flex items-center gap-2'>
                       <MessageSquare size={18} />2
                     </div>
-                    <div className='flex gap-2 items-center'>
+                    <div className='flex items-center gap-2'>
                       <Heart size={18} />
                       10
                     </div>
@@ -176,28 +176,32 @@ const HomePage = async () => {
               </div>
             </div>
 
-            <HomeHeader title="CHUYÊN MỤC" />
+            <HomeHeader title='CHUYÊN MỤC' />
 
-            <div className='py-2 mb-4'>
-              <div className='font-bold text-text-secondary mt-3 text-[16px]'>Thể Thao</div>
+            <div className='mb-4 py-2'>
+              <div className='mt-3 text-[16px] font-bold text-text-secondary'>Thể Thao</div>
               <div className='mt-1'>
-                <div className='relative h-[300px] flex-1 mb-4'>
+                <div className='relative mb-4 h-[300px] flex-1'>
                   <img src='/golf.png' className='h-full w-full object-cover' />
-
                 </div>
                 <div className='flex flex-1 flex-col justify-between'>
-                  <div className='line-clamp-3 text-xl font-bold text-text-primary md:line-clamp-5 mb-1'>
+                  <div className='mb-1 line-clamp-3 text-xl font-bold text-text-primary md:line-clamp-5'>
                     <Link href={`${'#'}`}>Những sân golf đẹp nhất Châu Âu</Link>
                   </div>
-                  <div className='flex mb-1'>
-                    <div className='mt-1 text-base font-bold text-head-line flex flex-1'>
+                  <div className='mb-1 flex'>
+                    <div className='mt-1 flex flex-1 text-base font-bold text-head-line'>
                       <div className='flex items-center'>
                         <img src='/09.png' />
-                        <a href="" className='text-[14px] text-text-link ml-2 font-normal' target='_blank' rel='noopener noreferrer'>
+                        <a
+                          href=''
+                          className='ml-2 text-[14px] font-normal text-text-link'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
                           Hội Golf Châu Âu
                         </a>
                       </div>
-                      <div className='flex items-center ml-4 font-normal'>
+                      <div className='ml-4 flex items-center font-normal'>
                         <img src='/ai.png' />
                         <div className='ml-2 text-text-secondary'>AI</div>
                       </div>
@@ -212,36 +216,43 @@ const HomePage = async () => {
                     </div>
                   </div>
 
-                  <div className='line-clamp-3 text-[14px] text-section-high-light md:line-clamp-3 mt-2'>
-                    <Link href={`${'#'}`}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Link>
+                  <div className='mt-2 line-clamp-3 text-[14px] text-section-high-light md:line-clamp-3'>
+                    <Link href={`${'#'}`}>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                      the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                      type and scrambled it to make a type specimen book.
+                    </Link>
                   </div>
-
                 </div>
               </div>
             </div>
 
-            <HomeHeader title="CỘNG ĐỒNG" />
+            <HomeHeader title='CỘNG ĐỒNG' />
 
-            <div className='py-2 mb-4'>
-              <div className='font-bold text-text-secondary mt-3 text-[16px]'>Sinh Hoạt Cộng Đồng</div>
+            <div className='mb-4 py-2'>
+              <div className='mt-3 text-[16px] font-bold text-text-secondary'>Sinh Hoạt Cộng Đồng</div>
               <div className='mt-1'>
-                <div className='relative h-[300px] flex-1 mb-4'>
+                <div className='relative mb-4 h-[300px] flex-1'>
                   <img src='/news-3.png' className='h-full w-full object-cover' />
-
                 </div>
                 <div className='flex flex-1 flex-col justify-between'>
-                  <div className='line-clamp-3 text-xl font-bold text-text-primary md:line-clamp-5 mb-1'>
+                  <div className='mb-1 line-clamp-3 text-xl font-bold text-text-primary md:line-clamp-5'>
                     <Link href={`${'#'}`}>Tưng bừng ngày Văn hóa Việt Nam tại Slovakia</Link>
                   </div>
-                  <div className='flex mb-1'>
-                    <div className='mt-1 text-base font-bold text-head-line flex flex-1'>
+                  <div className='mb-1 flex'>
+                    <div className='mt-1 flex flex-1 text-base font-bold text-head-line'>
                       <div className='flex items-center'>
                         <img src='/09.png' />
-                        <a href="" className='text-[14px] text-text-link ml-2 font-normal' target='_blank' rel='noopener noreferrer'>
+                        <a
+                          href=''
+                          className='ml-2 text-[14px] font-normal text-text-link'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
                           Hội Người Việt Nam Slovakia
                         </a>
                       </div>
-                      <div className='flex items-center ml-4 font-normal'>
+                      <div className='ml-4 flex items-center font-normal'>
                         <img src='/ai.png' />
                         <div className='ml-2 text-text-secondary'>AI</div>
                       </div>
@@ -256,10 +267,13 @@ const HomePage = async () => {
                     </div>
                   </div>
 
-                  <div className='line-clamp-3 text-[14px] text-section-high-light md:line-clamp-3 mt-2'>
-                    <Link href={`${'#'}`}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Link>
+                  <div className='mt-2 line-clamp-3 text-[14px] text-section-high-light md:line-clamp-3'>
+                    <Link href={`${'#'}`}>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                      the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                      type and scrambled it to make a type specimen book.
+                    </Link>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -270,35 +284,42 @@ const HomePage = async () => {
             </div>
             <div className='advertise'></div>
             <div className='mt-4'>
-              <HomeHeader title="KÊNH THÔNG TIN RAO VẶT" />
+              <HomeHeader title='KÊNH THÔNG TIN RAO VẶT' />
               <div className='mt-4'>
-                <div className='grid grid-cols-2 gap-2 mb-4'>
+                <div className='mb-4 grid grid-cols-2 gap-2'>
                   {listRaoVat.map((item: any, index: number) => {
                     return (
                       <div
                         key={index}
-                        className='cursor-pointer flex p-[10px] border-[1px] border-[#E5E7EB] rounded items-center'
+                        className='flex cursor-pointer items-center rounded border-[1px] border-[#E5E7EB] p-[10px]'
                       >
-                        <div className='w-[30px] h-[30px] rounded-3xl flex items-center justify-center' style={{ backgroundColor: item.color }}>
+                        <div
+                          className='flex h-[30px] w-[30px] items-center justify-center rounded-3xl'
+                          style={{ backgroundColor: item.color }}
+                        >
                           <item.icon />
                         </div>
-                        <div className='flex-1 pl-4 text-xs font-bold text-head-line md:text-base text-text-primary'>
+                        <div className='flex-1 pl-4 text-xs font-bold text-head-line text-text-primary md:text-base'>
                           {item?.title}
-                          <div className='text-xs text-text-secondary font-normal'>{item.count}</div>
+                          <div className='text-xs font-normal text-text-secondary'>{item.count}</div>
                         </div>
-
                       </div>
                     )
                   })}
                 </div>
-                <div className='bg-secondary-100 px-4 py-3 text-lg font-bold text-secondary-500 border-l-[2px] border-l-secondary-500' style={{ lineHeight: '1.125rem' }}>MỚI</div>
+                <div
+                  className='border-l-[2px] border-l-secondary-500 bg-secondary-100 px-4 py-3 text-lg font-bold text-secondary-500'
+                  style={{ lineHeight: '1.125rem' }}
+                >
+                  MỚI
+                </div>
                 <div className='mt-4'>
                   {listMoi.map((item: any, index: number) => {
                     return (
                       <div key={index} className='mb-4 flex gap-2'>
                         <div className='flex-1'>
-                          <div className='font-medium text-text-secondary text-[12px]'>{item?.date}</div>
-                          <div className='text-text-primary text-[14px]'>{item?.content}</div>
+                          <div className='text-[12px] font-medium text-text-secondary'>{item?.date}</div>
+                          <div className='text-[14px] text-text-primary'>{item?.content}</div>
                         </div>
                       </div>
                     )

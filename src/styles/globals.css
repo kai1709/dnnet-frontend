@@ -167,3 +167,20 @@
 .icon-home path {
   fill: var(--text-primary);
 }
+
+.button-comment {
+  border-color: var(--red-primary) !important;
+  margin-bottom: 20px;
+  &:hover {
+    background-color: var(--red-primary) !important;
+    color: white !important;
+  }
+}
+
+.ant-tabs-tab-btn {
+  color: var(--red-primary) !important;
+}
+
+.ant-tabs-ink-bar {
+  background-color: var(--red-primary) !important;
+}
