@@ -36,10 +36,10 @@ const Header = () => {
           <Input className='rounded bg-gray-bg max-w-[400px] border-[0px] input-search' placeholder='Tìm kiếm' />
         </div>
       </div>
-      <div className='pr-8 cursor-pointer'><Globe /></div>
-      <div className='flex cursor-pointer text-head-line'>
-        <User />
-        <div className='ml-2'>
+      <div className='pr-8 cursor-pointer'><Globe className='text-text-primary' /></div>
+      <div className='flex cursor-pointer'>
+        <User className='text-text-primary' />
+        <div className='ml-2 text-text-primary'>
           Đăng ký / Đăng Nhập
         </div>
       </div>
@@ -77,12 +77,12 @@ const Header = () => {
   return (
     <>
       <div
-        className={`flex w-full max-w-[1280px] items-center border-b-[1px] border-b-gray-bg bg-main-background px-6 py-4`}
+        className={`flex w-full max-w-[1280px] items-center border-b-[1px] border-b-border-color bg-main-background px-6 py-4`}
         style={activeClass ? { position: 'fixed', zIndex: 999 } : { display: 'none' }}
       >
         <HeaderContext />
       </div>
-      <div className={`flex items-center border-b-[1px] border-b-gray-bg px-6 py-4`}>
+      <div className={`flex items-center border-b-[1px] border-b-border-color px-6 py-4`}>
         <HeaderContext />
       </div>
     </>

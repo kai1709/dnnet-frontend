@@ -5,7 +5,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <>
-      <div className='bg-main-background border-t-[2px] border-t-gray-bg grid grid-cols-2 gap-3 md:grid-cols-3 p-[20px]'>
+      <div className='bg-main-background border-t-[2px] border-t-border-color grid grid-cols-2 gap-3 md:grid-cols-3 p-[20px]'>
         <div className=''>
           <Link href='/'>
             <img src='/logo-1.png' className='w-[220px]' alt='logo' />

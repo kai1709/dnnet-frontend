@@ -26,6 +26,8 @@
     --stroke-neutral: #111827;
     --secondary-500: #fbba53;
     --secondary-100: #fef6dc;
+    --border-color: #f3f4f6;
+    --shape-neutral: #f3f4f6;
   }
   .dark {
     --grey-2: #777777;
@@ -44,12 +46,14 @@
     --gray-bg: #2e2e2e;
     --red-primary: #c1272d;
     --red-primary-50: #fff1ea;
-    --text-secondary: #4b5563;
-    --text-primary: #111827;
+    --text-secondary: #c9c9c9;
+    --text-primary: #ffffff;
     --text-link: #3366ff;
     --stroke-neutral: #111827;
     --secondary-500: #fbba53;
     --secondary-100: #fef6dc;
+    --border-color: #f9fafb;
+    --shape-neutral: #f3f4f6;
   }
   .light-1 {
     --grey-2: #777777;
@@ -158,4 +162,8 @@
     border: none;
     box-shadow: none !important;
   }
+}
+
+.icon-home path {
+  fill: var(--text-primary);
 }

@@ -109,26 +109,26 @@ const HomePage = async () => {
   return (
     <>
       <div className='text-[16px] items-center'>
-        <div className='flex items-center gap-8 p-4 border-[1px] border-b-gray-bg'>
+        <div className='flex items-center gap-8 p-4 border-b-[1px] border-b-border-color'>
           <div className='flex items-center cursor-pointer'>
-            <IconHome />
-            <h1 className='text-head-line ml-2'>Trang chủ</h1>
+            <IconHome className='icon-home' />
+            <h1 className='text-text-primary ml-2'>Trang chủ</h1>
           </div>
           <div className='flex items-center cursor-pointer'>
 
-            <h1 className='text-head-line'>Tin Tức</h1>
+            <h1 className='text-text-primary'>Tin Tức</h1>
           </div>
           <div className='flex items-center cursor-pointer'>
 
-            <h1 className='text-head-line'>Kinh Doanh</h1>
+            <h1 className='text-text-primary'>Kinh Doanh</h1>
           </div>
           <div className='flex items-center cursor-pointer'>
 
-            <h1 className='text-head-line'>Chuyên Mục</h1>
+            <h1 className='text-text-primary'>Chuyên Mục</h1>
           </div>
           <div className='flex items-center cursor-pointer'>
 
-            <h1 className='text-head-line'>Cộng Đồng</h1>
+            <h1 className='text-text-primary'>Cộng Đồng</h1>
           </div>
 
         </div>
@@ -298,7 +298,7 @@ const HomePage = async () => {
                       <div key={index} className='mb-4 flex gap-2'>
                         <div className='flex-1'>
                           <div className='font-medium text-text-secondary text-[12px]'>{item?.date}</div>
-                          <div className='text-primary text-[14px]'>{item?.content}</div>
+                          <div className='text-text-primary text-[14px]'>{item?.content}</div>
                         </div>
                       </div>
                     )

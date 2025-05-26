@@ -30,7 +30,7 @@ const TinVan = ({ listTinVan }: any) => {
       </div>
       <div className='flex items-center justify-between mb-4'>
 
-        <div className='bg-gray-bg flex text-sm items-center font-medium text-black font-normal border-l-[2px] border-stroke-neutral px-3 py-1'>
+        <div className='bg-shape-neutral flex text-sm items-center font-medium text-black font-normal border-l-[2px] border-stroke-neutral px-3 py-1'>
           <CircleAlert className='mr-2' />
           Các tin trên đây được tóm tắt bởi AI.
         </div>
