@@ -31,7 +31,7 @@ const NewsDetail = async ({ params }: any) => {
   return (
     <div>
       <div className='flex items-center gap-2 p-4'>
-        <IconHome className='text-head-line' />
+        <IconHome />
         <h1 className='text-sm font-bold text-head-line'>Tin Tức</h1>
       </div>
       <div className='bg-section-header-background p-4 text-lg font-bold text-section-header'>

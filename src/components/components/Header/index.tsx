@@ -1,14 +1,13 @@
 'use client'
-import { Drawer, Radio } from 'antd'
 import Cookies from 'js-cookie'
-import { MenuIcon, User } from 'lucide-react'
+import { Globe, Search, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { Input } from '../ui/input'
+import { ConfigProvider, Switch } from 'antd'
 
 const themes = ['', 'dark', 'light-1', 'light-2']
 const Header = () => {
-  const [openNavigateSideBar, setOpenNavigateSideBar] = useState(false)
-  const [openUserSideBar, setOpenUserSideBar] = useState(false)
   const [activeClass, setActiveClass] = useState(false)
   const [theme, setTheme] = useState(Cookies.get('THEME_LAYOUT') || '')
   const scrollCheck = () => {
@@ -25,17 +24,41 @@ const Header = () => {
 
   const HeaderContext = () => (
     <>
-      <div onClick={() => setOpenNavigateSideBar(true)} className='cursor-pointer text-head-line'>
-        <MenuIcon />
-      </div>
-      <div className='flex flex-1 items-center justify-center text-center'>
+      <div className='flex'>
         <Link href='/' prefetch>
           <img src='/logo-1.png' className='hidden w-[220px] md:block' />
           <img src='/logo-mobile.png' className='block md:hidden' />
         </Link>
       </div>
-      <div className='cursor-pointer text-head-line' onClick={() => setOpenUserSideBar(true)}>
+      <div className='flex-1 px-4 items-center justify-center'>
+        <div className='flex bg-gray-bg rounded max-w-[400px] items-center px-3 py-2 m-auto'>
+          <Search />
+          <Input className='rounded bg-gray-bg max-w-[400px] border-[0px] input-search' placeholder='Tìm kiếm' />
+        </div>
+      </div>
+      <div className='pr-8 cursor-pointer'><Globe /></div>
+      <div className='flex cursor-pointer text-head-line'>
         <User />
+        <div className='ml-2'>
+          Đăng ký / Đăng Nhập
+        </div>
+      </div>
+      <div className='pl-4'>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#C1272D'
+            },
+            components: {
+              Switch: {
+              },
+            },
+          }}
+        >
+          <Switch defaultChecked={theme === ''} onClick={() => {
+            onSelectTheme(theme === 'dark' ? '' : 'dark')
+          }} />
+        </ConfigProvider>
       </div>
     </>
   )
@@ -53,56 +76,13 @@ const Header = () => {
 
   return (
     <>
-      <Drawer
-        title={null}
-        placement='left'
-        closable={false}
-        onClose={() => setOpenNavigateSideBar(false)}
-        open={openNavigateSideBar}
-        key='left'
-        className='user-drawer'
-      >
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Thời sự</div>
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Tin Vắn</div>
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Kinh Doanh</div>
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Chuyên Mục</div>
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Cộng Đồng</div>
-      </Drawer>
-
-      <Drawer
-        title={null}
-        placement='right'
-        closable={false}
-        onClose={() => setOpenUserSideBar(false)}
-        open={openUserSideBar}
-        key='right'
-        className='user-drawer bg-main-background'
-      >
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Login / Sign Up</div>
-        <div className='menu-button w-full cursor-pointer px-4 py-4'>Themes</div>
-        <div className='px-4 py-4'>
-          <Radio.Group
-            style={{}}
-            onChange={value => {
-              onSelectTheme(value.target.value)
-            }}
-            value={theme}
-            options={[
-              { value: '', label: 'Light' },
-              { value: 'dark', label: 'Dark' },
-              { value: 'light-1', label: 'Vintage' },
-              { value: 'light-2', label: 'Navy' }
-            ]}
-          />
-        </div>
-      </Drawer>
       <div
-        className={`flex w-full max-w-[1280px] items-center border-b-[4px] border-b-grey-2 bg-main-background px-6 py-4`}
+        className={`flex w-full max-w-[1280px] items-center border-b-[1px] border-b-gray-bg bg-main-background px-6 py-4`}
         style={activeClass ? { position: 'fixed', zIndex: 999 } : { display: 'none' }}
       >
         <HeaderContext />
       </div>
-      <div className={`flex items-center border-b-[4px] border-b-grey-2 px-6 py-4`}>
+      <div className={`flex items-center border-b-[1px] border-b-gray-bg px-6 py-4`}>
         <HeaderContext />
       </div>
     </>
