@@ -40,10 +40,12 @@ const Header = () => {
       <div className='cursor-pointer pr-8'>
         <Globe className='text-text-primary' />
       </div>
-      <div className='flex cursor-pointer'>
-        <User className='text-text-primary' />
-        <div className='ml-2 block hidden text-text-primary md:block'>Đăng ký / Đăng Nhập</div>
-      </div>
+      <Link href={'/login'}>
+        <div className='flex cursor-pointer'>
+          <User className='text-text-primary' />
+          <div className='ml-2 block hidden text-text-primary md:block'>Đăng ký / Đăng Nhập</div>
+        </div>
+      </Link>
       <div className='pl-4'>
         <ConfigProvider
           theme={{

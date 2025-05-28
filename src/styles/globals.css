@@ -177,10 +177,36 @@
   }
 }
 
-.ant-tabs-tab-btn {
+.ant-tabs-tab-active div {
   color: var(--red-primary) !important;
+  font-weight: 500;
 }
 
+.ant-tabs-tab div {
+  color: var(--text-primary);
+}
 .ant-tabs-ink-bar {
   background-color: var(--red-primary) !important;
+}
+
+.login .ant-tabs-nav-list {
+  width: 100%;
+}
+
+.login .ant-tabs-tab {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login input {
+  &:focus-visible {
+    background-color: var(--gray-bg) !important;
+  }
+  &:focus {
+    background-color: var(--gray-bg) !important;
+    box-shadow: none;
+  }
 }
