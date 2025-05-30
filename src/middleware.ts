@@ -1,8 +1,13 @@
 import { THEME_LAYOUT } from "@/constants/keys";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { cookies } from 'next/headers'
+import { decrypt } from "./components/lib/utils";
 
-export default function middleware(request: NextRequest) {
+const protectedRoutes = ['/profile']
+const publicRoutes = ['/login']
+
+export default async function middleware(request: NextRequest) {
   const theme = request.cookies.get(THEME_LAYOUT)?.value || "";
   const userAgent =
     request.headers.get("x-amzn-user-agent") ||
@@ -13,6 +18,30 @@ export default function middleware(request: NextRequest) {
   const response = NextResponse.next();
   response.headers.set("x-theme", theme);
   response.headers.set("x-is-mobile", `${isMobile}`);
+
+  const path = request.nextUrl.pathname
+  const isProtectedRoute = protectedRoutes.includes(path)
+  const isPublicRoute = publicRoutes.includes(path)
+
+  // 3. Decrypt the session from the cookie
+  const cookie = (await cookies()).get('session')?.value
+  const session = await decrypt(cookie)
+
+  // 4. Redirect to /login if the user is not authenticated
+  if (isProtectedRoute && !session?.id) {
+    return NextResponse.redirect(new URL('/login', request.nextUrl))
+  }
+
+  // 5. Redirect to /dashboard if the user is authenticated
+  if (
+    isPublicRoute &&
+    session?.id &&
+    !request.nextUrl.pathname.startsWith('/dashboard')
+  ) {
+    return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
+  }
+
+  return NextResponse.next()
 
   return response;
 }

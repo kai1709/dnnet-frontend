@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import * as CryptoJS from 'crypto-js'
 
+const CRYPTO_KEY = 'dnnet'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -52,4 +54,29 @@ export const getIdFromSlug = (slug: string) => {
 
 export const capitalize = (s: string) => {
   return s[0].toUpperCase() + s.slice(1, s.length)
+}
+
+
+export const queryParamsToObject = (queryString: string) => {
+  const params = new URLSearchParams(queryString);
+
+  return Object.fromEntries(params.entries());
+}
+
+export const encrypt = (data: any) => {
+  const dataString = JSON.stringify(data)
+  const ciphertext = CryptoJS.AES.encrypt(dataString, CRYPTO_KEY).toString();
+
+  return ciphertext
+}
+
+export const decrypt = (data: any) => {
+  if (data) {
+    const bytes = CryptoJS.AES.decrypt(data, CRYPTO_KEY);
+    const originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+    return originalText
+  }
+
+  return data
 }

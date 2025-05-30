@@ -7,6 +7,8 @@ import IconRaoVatNhanTin from '@/components/components/icons/IconRaoVatNhanTin'
 import IconRaoVatThietBi from '@/components/components/icons/IconRaoVatThietBi'
 import IconRaoVatViecLam from '@/components/components/icons/IconRaoVatViecLam'
 import IconRaoVatXe from '@/components/components/icons/IconRaoVatXe'
+import ChuyenMuc from '@/components/home/ChuyenMuc'
+import CongDong from '@/components/home/CongDong'
 import HomeHeader from '@/components/home/HomeHeader'
 import ThoiSu from '@/components/home/ThoiSu'
 import TinTuc from '@/components/home/TinTuc'
@@ -15,7 +17,6 @@ import { createMetadata } from '@/components/lib/utils'
 import { endPoints } from '@/services/endpoints'
 import { fetcherAPI } from '@/services/fetcher'
 import { Heart, MessageSquare, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
 
 export const generateMetadata = () => {
   return createMetadata({})
@@ -25,10 +26,19 @@ const HomePage = async () => {
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
 
   const news = res?.data || []
+  console.log({ res })
   const listThoiSu = news.filter((v: any) => v?.is_topnews)
   const listNotTopNews = news.filter((v: any) => !v?.is_topnews)
   const listTinVan = listNotTopNews.slice(0, 6)
   const listTinTuc = listNotTopNews.filter((v: any) => !listTinVan?.find((item: any) => item?.id === v?.id))
+  // const resCongDong: any = await fetcherAPI(
+  //   `${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name&filter={ "news_type": { "_eq": 3 }}`
+  // )
+
+  const congDongNews = news.filter((v: any) => v.news_type === 3)
+  const theThaoNews = news.filter((v: any) => v.news_type === 4)
+  // const congDongNews = resCongDong?.data || []
+  console.log({ congDongNews, theThaoNews })
   // console.log({ news, listTinVan, listThoiSu, listTinTuc })
   const listRaoVat = [
     {
@@ -176,107 +186,9 @@ const HomePage = async () => {
               </div>
             </div>
 
-            <HomeHeader title='CHUYÊN MỤC' />
+            <ChuyenMuc data={theThaoNews[0]} />
 
-            <div className='mb-4 py-2'>
-              <div className='mt-3 text-[16px] font-bold text-text-secondary'>Thể Thao</div>
-              <div className='mt-1'>
-                <div className='relative mb-4 h-[300px] flex-1'>
-                  <img src='/golf.png' className='h-full w-full object-cover' />
-                </div>
-                <div className='flex flex-1 flex-col justify-between'>
-                  <div className='mb-1 line-clamp-3 text-xl font-bold text-text-primary md:line-clamp-5'>
-                    <Link href={`${'#'}`}>Những sân golf đẹp nhất Châu Âu</Link>
-                  </div>
-                  <div className='mb-1 flex'>
-                    <div className='mt-1 flex flex-1 text-base font-bold text-head-line'>
-                      <div className='flex items-center'>
-                        <img src='/09.png' />
-                        <a
-                          href=''
-                          className='ml-2 text-[14px] font-normal text-text-link'
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          Hội Golf Châu Âu
-                        </a>
-                      </div>
-                      <div className='ml-4 flex items-center font-normal'>
-                        <img src='/ai.png' />
-                        <div className='ml-2 text-text-secondary'>AI</div>
-                      </div>
-                    </div>
-                    <div className='flex gap-4 text-base font-bold text-head-line'>
-                      <div className='flex gap-2'>
-                        <MessageSquare size={18} />
-                      </div>
-                      <div className='flex gap-2'>
-                        <Heart size={18} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className='mt-2 line-clamp-3 text-[14px] text-section-high-light md:line-clamp-3'>
-                    <Link href={`${'#'}`}>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                      the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                      type and scrambled it to make a type specimen book.
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <HomeHeader title='CỘNG ĐỒNG' />
-
-            <div className='mb-4 py-2'>
-              <div className='mt-3 text-[16px] font-bold text-text-secondary'>Sinh Hoạt Cộng Đồng</div>
-              <div className='mt-1'>
-                <div className='relative mb-4 h-[300px] flex-1'>
-                  <img src='/news-3.png' className='h-full w-full object-cover' />
-                </div>
-                <div className='flex flex-1 flex-col justify-between'>
-                  <div className='mb-1 line-clamp-3 text-xl font-bold text-text-primary md:line-clamp-5'>
-                    <Link href={`${'#'}`}>Tưng bừng ngày Văn hóa Việt Nam tại Slovakia</Link>
-                  </div>
-                  <div className='mb-1 flex'>
-                    <div className='mt-1 flex flex-1 text-base font-bold text-head-line'>
-                      <div className='flex items-center'>
-                        <img src='/09.png' />
-                        <a
-                          href=''
-                          className='ml-2 text-[14px] font-normal text-text-link'
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          Hội Người Việt Nam Slovakia
-                        </a>
-                      </div>
-                      <div className='ml-4 flex items-center font-normal'>
-                        <img src='/ai.png' />
-                        <div className='ml-2 text-text-secondary'>AI</div>
-                      </div>
-                    </div>
-                    <div className='flex gap-4 text-base font-bold text-head-line'>
-                      <div className='flex gap-2'>
-                        <MessageSquare size={18} />
-                      </div>
-                      <div className='flex gap-2'>
-                        <Heart size={18} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className='mt-2 line-clamp-3 text-[14px] text-section-high-light md:line-clamp-3'>
-                    <Link href={`${'#'}`}>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                      the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                      type and scrambled it to make a type specimen book.
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CongDong data={congDongNews[0]} />
           </div>
           <div className='flex-1'>
             <div className='hidden md:block'>

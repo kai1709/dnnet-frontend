@@ -3,7 +3,11 @@ import IconFacebook from '@/components/components/icons/IconFacebook'
 import IconGoogle from '@/components/components/icons/IconGoogle'
 import { Input, Tabs, TabsProps } from 'antd'
 import { fetcherAPI } from '@/services/fetcher'
-import { socialLoginEndpoints } from '@/services/endpoints'
+import { endPoints, socialCodeEndpoint, socialLoginEndpoints } from '@/services/endpoints'
+import { useEffect } from 'react'
+import { encrypt, queryParamsToObject } from '@/components/lib/utils'
+import { useRouter } from 'next/navigation'
+import IconMicrosoft from '@/components/components/icons/IconMicrosoft'
 
 const LoginForm = () => {
   return (
@@ -66,10 +70,34 @@ const RegForm = () => {
 }
 
 const LoginSocial = () => {
+  const router = useRouter()
   const handleLoginSocial = async (social: string) => {
-    const res = await fetcherAPI(socialLoginEndpoints(social, 'login', `?callback=${window.location.href}`))
-    console.log({ res })
+    localStorage.setItem('social', social)
+    window.location.href = socialLoginEndpoints('login', `?callback=${window.location.href}`, social)
   }
+
+  const checkCode = async () => {
+    const queryParams = queryParamsToObject(window.location.search)
+    console.log({ queryParams })
+    const code = queryParams.code
+    const social = localStorage.getItem('social')
+    if (code && social) {
+      const res = await fetcherAPI(socialCodeEndpoint(code))
+      const token = res.data.accessToken
+      const resProfile = await fetcherAPI(endPoints.userProfile, token)
+      if (resProfile?.data) {
+        console.log({ resProfile })
+        const encryptedSessionData = encrypt(resProfile.data)
+
+        localStorage.setItem('user', encryptedSessionData)
+        router.push('/')
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkCode()
+  }, [])
 
   return (
     <>
@@ -90,6 +118,13 @@ const LoginSocial = () => {
           onClick={() => handleLoginSocial('google')}
         >
           <IconGoogle />
+        </div>
+
+        <div
+          className='flex flex-1 cursor-pointer items-center justify-center rounded bg-gray-bg py-2'
+          onClick={() => handleLoginSocial('microsoft')}
+        >
+          <IconMicrosoft />
         </div>
       </div>
       <div className='mt-6 text-[12px] text-text-secondary'>
