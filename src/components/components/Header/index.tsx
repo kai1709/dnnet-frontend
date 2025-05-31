@@ -8,10 +8,18 @@ import { ConfigProvider, Dropdown, MenuProps, Switch } from 'antd'
 import IconHome from '../icons/IconHome'
 import { decrypt } from '@/components/lib/utils'
 import { usePathname, useRouter } from 'next/navigation'
+import IconLogout from '../icons/IconLogout'
 
 export type User = {
-  firstName: string
-  lastName: string
+  display_name: string
+  full_name: string
+  job_title: string
+  avatar: string
+  email: string
+  profile_url: string
+  mobile_number: string
+  country: string
+  gender: string
 }
 const themes = ['', 'dark', 'light-1', 'light-2']
 const Header = () => {
@@ -32,18 +40,17 @@ const Header = () => {
     }
   }, [])
 
-  const loadUser = () => {
-    const userDataEncrypted = localStorage.getItem('user')
-    console.log({ userDataEncrypted })
-    if (userDataEncrypted) {
-      const userDataString = decrypt(userDataEncrypted)
-      const userData = JSON.parse(userDataString)
+  const loadUser = async () => {
+    const cookie = Cookies.get('user')
+    const session = await decrypt(cookie)
+    if (session) {
+      const userData = JSON.parse(session)
       setUserData(userData)
     }
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('user')
+    Cookies.remove('user')
     setUserData(null)
     if (path.includes('profile')) {
       router.push('/')
@@ -55,14 +62,22 @@ const Header = () => {
 
   const userMenu: MenuProps['items'] = [
     {
+      key: '0',
+      label: <div className='flex'>
+        <img src={userData?.avatar || '/user-avatar-1.png'} className='w-[30px] h-[30px] mr-2' style={{ borderRadius: 45 }} />
+        <div className='text-text-primary font-semibold text-[16px]'>{userData?.display_name}</div>
+      </div>
+    },
+    {
       key: '1',
-      label: <div>Trang cá nhân</div>
+      label: <Link href="/profile"><div className='py-2 text-[14px]'>Trang cá nhân</div></Link>
     },
     {
       key: '2',
       label: (
-        <div className='flex' onClick={() => handleLogout()}>
+        <div className='flex gap-2 items-center text-[14px] py-2' onClick={() => handleLogout()}>
           Thoát
+          <IconLogout />
         </div>
       )
     }
@@ -98,10 +113,10 @@ const Header = () => {
         </div>
       </Dropdown>
       {userData ? (
-        <Dropdown menu={{ items: userMenu }} trigger={['hover', 'click']} placement='bottom'>
-          <div className='flex cursor-pointer'>
-            <CircleUser className='mr-2 text-text-primary' />
-            <div className='text-text-primary'>{userData.firstName}</div>
+        <Dropdown overlayClassName='user-dropdown' menu={{ items: userMenu }} trigger={['hover', 'click']} placement='bottom'>
+          <div className='flex cursor-pointer items-center'>
+            <img src={userData?.avatar || '/user-avatar-1.png'} className='w-[30px] h-[30px] mr-2' style={{ borderRadius: 45 }} />
+            <div className='text-text-primary'>{userData.display_name}</div>
           </div>
         </Dropdown>
       ) : (

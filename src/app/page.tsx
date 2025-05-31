@@ -24,9 +24,7 @@ export const generateMetadata = () => {
 
 const HomePage = async () => {
   const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
-
   const news = res?.data || []
-  console.log({ res })
   const listThoiSu = news.filter((v: any) => v?.is_topnews)
   const listNotTopNews = news.filter((v: any) => !v?.is_topnews)
   const listTinVan = listNotTopNews.slice(0, 6)
@@ -37,9 +35,6 @@ const HomePage = async () => {
 
   const congDongNews = news.filter((v: any) => v.news_type === 3)
   const theThaoNews = news.filter((v: any) => v.news_type === 4)
-  // const congDongNews = resCongDong?.data || []
-  console.log({ congDongNews, theThaoNews })
-  // console.log({ news, listTinVan, listThoiSu, listTinTuc })
   const listRaoVat = [
     {
       title: `Nhà cửa, đất đai`,
