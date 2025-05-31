@@ -10,6 +10,7 @@ import HomeHeader from '@/components/home/HomeHeader'
 import Link from 'next/link'
 import TextArea from 'antd/es/input/TextArea'
 import Comments from './Comments'
+import CommentInput from './CommentInput'
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dayjs/locale/vi')
 // type PageProps = {
@@ -34,7 +35,10 @@ dayjs.locale('vi')
 const NewsDetail = async ({ params }: any) => {
   const resolvedParams = await params
   const newId = getIdFromSlug(resolvedParams?.id)
-  const res: any = await fetcherAPI(`${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name`)
+  const res: any = await fetcherAPI(
+    `${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name,comments.*,comments.author.*`
+  )
+  console.log({ res })
   const detail = res?.data
   const resSummary: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
 
@@ -42,6 +46,7 @@ const NewsDetail = async ({ params }: any) => {
   const listNotTopNews = news.filter((v: any) => !v?.is_topnews)
   const listTinVan = listNotTopNews.slice(0, 6)
   const listTinTuc = listNotTopNews.filter((v: any) => !listTinVan?.find((item: any) => item?.id === v?.id))
+  const comments = detail.comments || []
 
   return (
     <Row gutter={[20, 20]} className='pt-4'>
@@ -79,19 +84,8 @@ const NewsDetail = async ({ params }: any) => {
           </div>
 
           <div className='pt-0'>
-            <div className='text-[18px] font-semibold text-text-primary'>Bình luận</div>
-            <div className='mb-4 mt-4 flex w-full rounded bg-gray-bg hover:bg-gray-bg'>
-              <TextArea className='border-[0px] bg-gray-bg outline-none hover:bg-gray-bg focus:bg-gray-bg' />
-            </div>
-            <div className='flex'>
-              <div className='flex-1' />
-              <div>
-                <Button className='button-comment bg-red-primary text-white hover:bg-red-primary hover:text-white'>
-                  Gửi bình luận
-                </Button>
-              </div>
-            </div>
-            <Comments />
+            <CommentInput id={detail?.id} />
+            <Comments data={comments} />
           </div>
 
           <HomeHeader title='CÙNG CHUYÊN MỤC' />

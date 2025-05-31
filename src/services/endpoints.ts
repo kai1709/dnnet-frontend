@@ -6,7 +6,8 @@ export const endPoints = {
 
   userProfile: `${API_AUTH_URL}/api/users/profile`,
   getCmsUser: `${API_URL}/items/Users`,
-  files: `${API_URL}/files`
+  files: `${API_URL}/files`,
+  comments: `${API_URL}/items/Comments`,
 };
 
 
