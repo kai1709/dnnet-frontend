@@ -1,6 +1,6 @@
 'use client'
 import Cookies from 'js-cookie'
-import { CircleUser, Globe, Search, User } from 'lucide-react'
+import { Globe, Search, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Input } from '../ui/input'
@@ -11,6 +11,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import IconLogout from '../icons/IconLogout'
 
 export type User = {
+  id: string
   display_name: string
   full_name: string
   job_title: string
@@ -63,19 +64,29 @@ const Header = () => {
   const userMenu: MenuProps['items'] = [
     {
       key: '0',
-      label: <div className='flex'>
-        <img src={userData?.avatar || '/user-avatar-1.png'} className='w-[30px] h-[30px] mr-2' style={{ borderRadius: 45 }} />
-        <div className='text-text-primary font-semibold text-[16px]'>{userData?.display_name}</div>
-      </div>
+      label: (
+        <div className='flex'>
+          <img
+            src={userData?.avatar || '/user-avatar-1.png'}
+            className='mr-2 h-[30px] w-[30px]'
+            style={{ borderRadius: 45 }}
+          />
+          <div className='text-[16px] font-semibold text-text-primary'>{userData?.display_name}</div>
+        </div>
+      )
     },
     {
       key: '1',
-      label: <Link href="/profile"><div className='py-2 text-[14px]'>Trang cá nhân</div></Link>
+      label: (
+        <Link href='/profile'>
+          <div className='py-2 text-[14px]'>Trang cá nhân</div>
+        </Link>
+      )
     },
     {
       key: '2',
       label: (
-        <div className='flex gap-2 items-center text-[14px] py-2' onClick={() => handleLogout()}>
+        <div className='flex items-center gap-2 py-2 text-[14px]' onClick={() => handleLogout()}>
           Thoát
           <IconLogout />
         </div>
@@ -113,9 +124,18 @@ const Header = () => {
         </div>
       </Dropdown>
       {userData ? (
-        <Dropdown overlayClassName='user-dropdown' menu={{ items: userMenu }} trigger={['hover', 'click']} placement='bottom'>
+        <Dropdown
+          overlayClassName='user-dropdown'
+          menu={{ items: userMenu }}
+          trigger={['hover', 'click']}
+          placement='bottom'
+        >
           <div className='flex cursor-pointer items-center'>
-            <img src={userData?.avatar || '/user-avatar-1.png'} className='w-[30px] h-[30px] mr-2' style={{ borderRadius: 45 }} />
+            <img
+              src={userData?.avatar || '/user-avatar-1.png'}
+              className='mr-2 h-[30px] w-[30px]'
+              style={{ borderRadius: 45 }}
+            />
             <div className='text-text-primary'>{userData.display_name}</div>
           </div>
         </Dropdown>

@@ -2,10 +2,9 @@ import { endPoints } from "@/services/endpoints";
 import { TOKEN } from "@/services/fetcher";
 import axios from "axios";
 
-export async function PATCH(request, { params }) {
-  const userId = params.id;
+export async function PATCH(request: any, context: any) {
+  const { id: userId } = context.params;
   const body = await request.json();
-  console.log({ request, params })
   try {
     const { data } = await axios.patch(`${endPoints.getCmsUser}/${userId}`,
       body,
@@ -20,7 +19,7 @@ export async function PATCH(request, { params }) {
     console.log({ data })
 
     return Response.json({ message: 'User updated', data });
-  } catch (error) {
+  } catch (error: any) {
     return new Response(
       JSON.stringify({ error: 'Failed to update user', detail: error.message }),
       { status: 500 }
