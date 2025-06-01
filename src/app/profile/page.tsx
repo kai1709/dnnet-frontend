@@ -9,7 +9,7 @@ import { decrypt, encrypt } from '@/components/lib/utils'
 import { Flex, Input, Radio, Select, Upload, UploadFile, UploadProps } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { CircleUser, Pencil, Plus } from 'lucide-react'
+import { Pencil, Plus } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -180,7 +180,13 @@ const Profile = () => {
         <div className='border-border-color-2 flex-1 rounded border-[1px] p-[20px]'>
           <div className='border-border-color-2 flex items-center gap-2.5 border-b-[1px] pb-[10px]'>
             <div data-type='Initials' data-variants='15' className='flex h-8 w-8 items-start justify-start'>
-              <CircleUser size={32} />
+              <img
+                src={previewImage || '/user-avatar-1.png'}
+                className='h-[30px] w-[30px]'
+                style={{ borderRadius: 45 }}
+                alt='avatar'
+                crossOrigin='anonymous'
+              />
             </div>
             <div className="text-Color-Text-Primary justify-start font-['Inter'] text-base font-semibold leading-normal">
               {userData?.display_name}
@@ -225,7 +231,7 @@ const Profile = () => {
             </div>
           </div>
           <div className='inline-flex items-center justify-start gap-1.5 pt-[10px]'>
-            <div className='flex items-center gap-2 py-2 text-[14px]' onClick={() => handleLogout()}>
+            <div className='flex items-center gap-2 py-2 text-[14px] cursor-pointer' onClick={() => handleLogout()}>
               Thoát
               <IconLogout />
             </div>
