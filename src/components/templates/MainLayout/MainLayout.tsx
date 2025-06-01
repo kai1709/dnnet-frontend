@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import Header from '@/components/components/Header'
 import Footer from '@/components/components/Footer'
 import NProgress from '@/components/components/NProgress'
+import { UserProvider } from '@/components/components/UserContext'
 
 interface MainLayoutProps {
   children: ReactNode
@@ -14,13 +15,15 @@ interface MainLayoutProps {
 // Add here components like Footer, Nav etc.
 export const MainLayout = ({ children, className }: MainLayoutProps) => {
   return (
-    <div className={cn('', className)}>
-      <div className='mx-auto min-h-screen w-full max-w-[1280px] bg-main-background'>
-        <NProgress />
-        <Header />
-        <main className='flex-1'>{children}</main>
-        <Footer />
+    <UserProvider>
+      <div className={cn('', className)}>
+        <div className='mx-auto min-h-screen w-full max-w-[1280px] bg-main-background'>
+          <NProgress />
+          <Header />
+          <main className='flex-1'>{children}</main>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </UserProvider>
   )
 }

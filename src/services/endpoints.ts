@@ -8,6 +8,8 @@ export const endPoints = {
   getCmsUser: `${API_URL}/items/Users`,
   files: `${API_URL}/files`,
   comments: `${API_URL}/items/Comments`,
+  commentReply: `${API_URL}/items/CommentReply`,
+  likes: `${API_URL}/items/Likes`,
 };
 
 

@@ -10,6 +10,7 @@ import { cookies } from 'next/headers'
 
 import { cn } from '@/lib/utils'
 import { THEME_LAYOUT } from '@/constants/keys'
+import { UserProvider } from '@/components/components/UserContext'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-primary' })
 
@@ -27,7 +28,9 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
       <body className={cn(inter.variable, 'bg-light-grey font-primary')} suppressHydrationWarning>
         <MainProvider>
           <MainLayout>
-            <main>{children}</main>
+            <UserProvider>
+              <main>{children}</main>
+            </UserProvider>
           </MainLayout>
         </MainProvider>
       </body>
