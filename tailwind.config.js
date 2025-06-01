@@ -62,6 +62,7 @@ module.exports = {
         "secondary-500": "var(--secondary-500)",
         "secondary-100": "var(--secondary-100)",
         "shape-neutral": "var(--shape-neutral)",
+        "text-icon": "var(--text-icon)",
         // background: 'hsl(var(--background))',
         // foreground: 'hsl(var(--foreground))',
         // card: {

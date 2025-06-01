@@ -5,15 +5,13 @@ import IconViewReply from '@/components/components/icons/IconViewReply'
 import Loading from '@/components/components/icons/Loading'
 import LoadingWhite from '@/components/components/icons/LoadingWhite'
 import { useUser } from '@/components/components/UserContext'
-import { decrypt } from '@/components/lib/utils'
 import { Button, Tabs, TabsProps } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import { ThumbsUp } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Reply from './Reply'
+import CommentInput from './CommentInput'
 
 const items: TabsProps['items'] = [
   {
@@ -41,21 +39,39 @@ export type Like = {
   comment: number
   reply: number
 }
-const Comments = ({ data }: { data: CommentType[] }) => {
+const Comments = ({ id }: { data: CommentType[], id: number }) => {
+  const [tab, setTab] = useState('1')
+  const [comments, setComments] = useState<CommentType[]>([])
+  // @ts-expect-error expected context
+  const { user } = useUser()
+
+  const loadComments = async () => {
+    const { data } = await axios.get(`/api/comment?id=${id}`)
+    setComments(data.data.data)
+  }
+
+  const dataRender = tab === '1' ? comments : comments.filter(c => c.author.id === user?.id)
+
+  useEffect(() => {
+    loadComments()
+  }, [])
+
   return (
-    <div className='mb-4'>
-      <Tabs defaultActiveKey='1' items={items} onChange={() => {}} />
-      {data.map(comment => (
-        <Comment key={comment.id} comment={comment} />
-      ))}
-    </div>
+    <>
+      <CommentInput id={id} loadComments={loadComments} />
+      <div className='mb-4'>
+        <Tabs defaultActiveKey='1' items={items} onChange={(e) => { setTab(e) }} />
+        {dataRender.map(comment => (
+          <Comment key={comment.id} comment={comment} loadComments={loadComments} />
+        ))}
+      </div>
+    </>
   )
 }
 
-const Comment = ({ comment }: { comment: CommentType }) => {
+const Comment = ({ comment, loadComments }: { comment: CommentType, loadComments: () => void }) => {
   const [showReply, setShowReply] = useState(false)
   const [isProcessingLike, setIsProcessingLike] = useState(false)
-  const router = useRouter()
   // @ts-expect-error expected context
   const { user } = useUser()
 
@@ -67,13 +83,21 @@ const Comment = ({ comment }: { comment: CommentType }) => {
       comment: comment.id
     }
 
-    const res = await axios.post('/api/likes', body)
-    console.log({ res })
-    router.refresh()
+    await axios.post('/api/likes', body)
+    setLikesCount(isLiked ? likesCount - 1 : likesCount + 1)
+    setIsLiked(!isLiked)
     setIsProcessingLike(false)
   }
 
-  const isLikedByMe = comment.likes.find(like => like.user === user?.id)
+  const [isLiked, setIsLiked] = useState(false)
+  const [likesCount, setLikesCount] = useState(comment.likes.length)
+
+  useEffect(() => {
+    if (user?.id) {
+      const isLikedByMe = comment.likes.find(like => like.user === user?.id)
+      setIsLiked(!!isLikedByMe)
+    }
+  }, [user?.id])
 
   return (
     <div className='mb-4 mt-4 flex' key={comment.id}>
@@ -92,26 +116,34 @@ const Comment = ({ comment }: { comment: CommentType }) => {
         </div>
         <div className='flex'>
           <div className='flex flex-1 items-center gap-2'>
-            <div className={`flex cursor-pointer gap-1 ${isLikedByMe ? 'text-red-primary' : ''}`} onClick={handleLike}>
-              {isProcessingLike ? (
-                <Loading width='20' height='20' />
-              ) : (
-                <>
-                  <ThumbsUp size={16} />
-                  Thích
-                </>
-              )}
-            </div>
-            <div className='flex cursor-pointer items-center gap-1' onClick={() => setShowReply(true)}>
+            {user?.id && (
+              <div className={`flex items-center cursor-pointer gap-1 ${isLiked ? 'text-red-primary' : 'text-text-icon'}`} onClick={handleLike}>
+                {isProcessingLike ? (
+                  <Loading width='20' height='20' />
+                ) : (
+                  <>
+                    <ThumbsUp size={16} />
+                    Thích
+                  </>
+                )}
+              </div>
+            )}
+            <div className='flex cursor-pointer items-center gap-1 text-text-icon' onClick={() => setShowReply(true)}>
               <IconReply />
               Trả lời
             </div>
+            {likesCount > 0 && (
+              <div className='flex cursor-pointer items-center gap-1 text-red-primary items-center'>
+                <ThumbsUp size={16} />
+                {likesCount}
+              </div>
+            )}
           </div>
         </div>
         {showReply && (
           <div className='border-border-color-2 mt-2 border-l-[1px] pl-2 pt-1'>
             {comment.replies?.map(reply => <Reply key={reply.id} reply={reply} />)}
-            <ReplyInput id={comment.id} />
+            <ReplyInput id={comment.id} loadComments={loadComments} />
           </div>
         )}
         {!showReply && comment.replies?.length > 0 && (
@@ -125,25 +157,11 @@ const Comment = ({ comment }: { comment: CommentType }) => {
   )
 }
 
-const ReplyInput = ({ id }: { id: number }) => {
+const ReplyInput = ({ id, loadComments }: { id: number, loadComments: () => void }) => {
   const [value, setValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [userData, setUserData] = useState<User | null>(null)
-
-  const router = useRouter()
-
-  const loadUser = async () => {
-    const cookie = Cookies.get('user')
-    const session = await decrypt(cookie)
-    if (session) {
-      const userData = JSON.parse(session)
-      setUserData(userData)
-    }
-  }
-
-  useEffect(() => {
-    loadUser()
-  }, [])
+  // @ts-expect-error context user
+  const { user } = useUser()
 
   const onSubmit = async () => {
     if (!value || isLoading) return
@@ -151,16 +169,17 @@ const ReplyInput = ({ id }: { id: number }) => {
     const body = {
       content: value,
       comment: id,
-      author: userData?.id
+      author: user?.id
     }
 
     await axios.post('/api/reply', body)
+    await loadComments()
     setIsLoading(false)
     setValue('')
-    router.refresh()
+
   }
 
-  if (!userData) return null
+  if (!user?.id) return null
 
   return (
     <>
@@ -169,7 +188,7 @@ const ReplyInput = ({ id }: { id: number }) => {
           value={value}
           placeholder='Chia sẻ ý kiến của bạn'
           onChange={e => setValue(e.target.value)}
-          className='h-[80px] border-[0px] bg-gray-bg outline-none hover:bg-gray-bg focus:bg-gray-bg'
+          className='h-[80px] border-[0px] bg-gray-bg outline-none hover:bg-gray-bg focus:bg-gray-bg text-text-primary placeholder-text-primary'
           style={{ height: '80px' }}
         />
       </div>

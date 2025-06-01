@@ -61,6 +61,7 @@ const Header = () => {
             src={userData?.avatar || '/user-avatar-1.png'}
             className='mr-2 h-[30px] w-[30px]'
             style={{ borderRadius: 45 }}
+            alt="avatar"
           />
           <div className='text-[16px] font-semibold text-text-primary'>{userData?.display_name}</div>
         </div>
@@ -70,14 +71,14 @@ const Header = () => {
       key: '1',
       label: (
         <Link href='/profile'>
-          <div className='py-2 text-[14px]'>Trang cá nhân</div>
+          <div className='py-2 text-[14px]  text-text-primary'>Trang cá nhân</div>
         </Link>
       )
     },
     {
       key: '2',
       label: (
-        <div className='flex items-center gap-2 py-2 text-[14px]' onClick={() => handleLogout()}>
+        <div className='flex items-center gap-2 py-2 text-[14px] text-text-primary' onClick={() => handleLogout()}>
           Thoát
           <IconLogout />
         </div>
@@ -88,11 +89,11 @@ const Header = () => {
   const langMenus: MenuProps['items'] = [
     {
       key: '1',
-      label: <div>Tiếng Việt</div>
+      label: <div className='text-text-primary'>Tiếng Việt</div>
     },
     {
       key: '2',
-      label: <div>Tiếng Anh</div>
+      label: <div className='text-text-primary'>Tiếng Anh</div>
     }
   ]
   const HeaderContext = () => (

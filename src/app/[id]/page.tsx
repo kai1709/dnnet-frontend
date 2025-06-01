@@ -9,7 +9,6 @@ import dayjs from 'dayjs'
 import HomeHeader from '@/components/home/HomeHeader'
 import Link from 'next/link'
 import Comments from './Comments'
-import CommentInput from './CommentInput'
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dayjs/locale/vi')
 // type PageProps = {
@@ -35,9 +34,9 @@ const NewsDetail = async ({ params }: any) => {
   const resolvedParams = await params
   const newId = getIdFromSlug(resolvedParams?.id)
   const res: any = await fetcherAPI(
-    `${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name,comments.*,comments.likes.*,comments.author.*,comments.replies.*,comments.replies.author.*, comments.replies.likes.*`
+    `${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name`
   )
-  console.log({ res })
+
   const detail = res?.data
   const resSummary: any = await fetcherAPI(`${endPoints.getNewsSummaries}?fields=*%2Cnews_source.name%2Ccountry.name`)
 
@@ -83,8 +82,7 @@ const NewsDetail = async ({ params }: any) => {
           </div>
 
           <div className='pt-0'>
-            <CommentInput id={detail?.id} />
-            <Comments data={comments} />
+            <Comments data={comments} id={detail?.id} />
           </div>
 
           <HomeHeader title='CÙNG CHUYÊN MỤC' />

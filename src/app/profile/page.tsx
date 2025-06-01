@@ -177,7 +177,7 @@ const Profile = () => {
   return (
     <>
       <div className='inline-flex w-full items-start justify-start gap-5 self-stretch px-6 pb-20 pt-8'>
-        <div className='border-border-color-2 flex-1 rounded border-[1px] p-[20px]'>
+        <div className='border-border-color-2 flex-1 rounded border-[1px] p-[20px] hidden md:block'>
           <div className='border-border-color-2 flex items-center gap-2.5 border-b-[1px] pb-[10px]'>
             <div data-type='Initials' data-variants='15' className='flex h-8 w-8 items-start justify-start'>
               <img
@@ -188,7 +188,7 @@ const Profile = () => {
                 crossOrigin='anonymous'
               />
             </div>
-            <div className="text-Color-Text-Primary justify-start font-['Inter'] text-base font-semibold leading-normal">
+            <div className="text-text-primary justify-start font-['Inter'] text-base font-semibold leading-normal">
               {userData?.display_name}
             </div>
           </div>
@@ -204,34 +204,34 @@ const Profile = () => {
             <div className='flex items-center justify-start text-[14px] font-semibold'>
               <div className='text-red-primary'>Thông tin chung</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Trang Thành viên</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Danh sách tổ chức/ công ty</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Danh sách thành viên</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Kết nối DNNet</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Bài viết</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Thông báo/ quảng cáo</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className=''>Tin đã chia sẻ</div>
             </div>
-            <div className='flex items-center justify-start pt-[10px] text-[14px]'>
+            <div className='flex items-center justify-start pt-[10px] text-[14px] text-text-primary'>
               <div className='flex-1'>Bình luận của bạn</div>
               <div className=''>2</div>
             </div>
           </div>
           <div className='inline-flex items-center justify-start gap-1.5 pt-[10px]'>
-            <div className='flex items-center gap-2 py-2 text-[14px] cursor-pointer' onClick={() => handleLogout()}>
+            <div className='flex items-center gap-2 py-2 text-[14px] cursor-pointer text-text-primary' onClick={() => handleLogout()}>
               Thoát
               <IconLogout />
             </div>
@@ -252,7 +252,7 @@ const Profile = () => {
               {isEditting ? (
                 <div className='flex gap-2'>
                   <div
-                    className='cursor-pointer border-[1px] border-[#111827] px-[12px] py-[8px] text-[12px]'
+                    className='cursor-pointer border-[1px] border-[#111827] px-[12px] py-[8px] text-[12px] text-text-primary'
                     onClick={() => {
                       if (isLoading) return
                       setIsEditting(false)
@@ -283,7 +283,7 @@ const Profile = () => {
             </div>
             <div className='flex flex-col items-start justify-start gap-3.5 self-stretch p-5'>
               <div className='flex flex-col items-start justify-start gap-2 self-stretch'>
-                <div className="text-Color-Text-Primary justify-start self-stretch font-['Inter'] text-base font-semibold leading-normal">
+                <div className="text-Color-Text-Primary justify-start self-stretch font-['Inter'] text-text-primary font-semibold leading-normal">
                   Ảnh đại diện
                 </div>
 
@@ -321,12 +321,12 @@ const Profile = () => {
                   )}
                 </div>
               </div>
-              <div className='grid w-full grid-cols-[1] gap-4 md:grid-cols-2'>
-                <div className='mb-4'>
+              <div className='grid w-full gap-4 md:grid-cols-2'>
+                <div className='mb-4 w-full'>
                   <div className='mb-2 justify-start text-[16px] font-semibold text-text-primary'>Họ và tên</div>
                   {isEditting ? (
                     <Input
-                      className='bg-gray-bg p-[12px]'
+                      className='bg-gray-bg p-[12px] text-text-primary'
                       style={{ lineHeight: '14px' }}
                       value={fullName}
                       onChange={(e: any) => setFullName(e.target.value)}
@@ -334,7 +334,7 @@ const Profile = () => {
                   ) : (
                     <>
                       {userData?.full_name ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {userData.full_name}
                         </div>
                       ) : (
@@ -348,14 +348,14 @@ const Profile = () => {
                   {isEditting ? (
                     <Input
                       value={displayName}
-                      className='bg-gray-bg p-[12px]'
+                      className='bg-gray-bg p-[12px] text-text-primary'
                       style={{ lineHeight: '14px' }}
                       onChange={e => setDisplayName(e.target.value)}
                     />
                   ) : (
                     <>
                       {userData?.display_name ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {userData.display_name}
                         </div>
                       ) : (
@@ -371,14 +371,14 @@ const Profile = () => {
                   {isEditting ? (
                     <Input
                       value={jobTitle}
-                      className='bg-gray-bg p-[12px]'
+                      className='bg-gray-bg p-[12px] text-text-primary'
                       style={{ lineHeight: '14px' }}
                       onChange={e => setJobTitle(e.target.value)}
                     />
                   ) : (
                     <>
                       {userData?.job_title ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {userData.job_title}
                         </div>
                       ) : (
@@ -394,13 +394,13 @@ const Profile = () => {
                     <Input
                       defaultValue={userData?.email}
                       disabled
-                      className='bg-gray-bg p-[12px]'
+                      className='bg-gray-bg p-[12px] text-text-primary disabled-input'
                       style={{ lineHeight: '14px' }}
                     />
                   ) : (
                     <>
                       {userData?.email ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {userData.email}
                         </div>
                       ) : (
@@ -415,14 +415,14 @@ const Profile = () => {
                   {isEditting ? (
                     <Input
                       value={profileUrl}
-                      className='bg-gray-bg p-[12px]'
+                      className='bg-gray-bg p-[12px] text-text-primary'
                       style={{ lineHeight: '14px' }}
                       onChange={e => setProfileUrl(e.target.value)}
                     />
                   ) : (
                     <>
                       {userData?.profile_url ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {userData.profile_url}
                         </div>
                       ) : (
@@ -435,11 +435,11 @@ const Profile = () => {
                 <div className='mb-4'>
                   <div className='mb-2 justify-start text-[16px] font-semibold text-text-primary'>Giới tính</div>
                   {isEditting ? (
-                    <Select options={GENDERS} value={gender} onChange={val => setGender(val)} className='w-full' />
+                    <Select options={GENDERS} value={gender} onChange={val => setGender(val)} className='w-full text-text-primary' />
                   ) : (
                     <>
                       {userData?.gender ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {GENDERS.find(a => a.value === userData.gender)?.label}
                         </div>
                       ) : (
@@ -454,14 +454,14 @@ const Profile = () => {
                   {isEditting ? (
                     <Input
                       value={mobileNumber}
-                      className='bg-gray-bg p-[12px]'
+                      className='bg-gray-bg p-[12px] text-text-primary'
                       style={{ lineHeight: '14px' }}
                       onChange={e => setMobileNumber(e.target.value)}
                     />
                   ) : (
                     <>
                       {userData?.mobile_number ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {userData.mobile_number}
                         </div>
                       ) : (
@@ -474,11 +474,11 @@ const Profile = () => {
                 <div className='mb-4'>
                   <div className='mb-2 justify-start text-[16px] font-semibold text-text-primary'>Nước</div>
                   {isEditting ? (
-                    <Select options={COUNTRIES} value={country} onChange={val => setCountry(val)} className='w-full' />
+                    <Select options={COUNTRIES} value={country} onChange={val => setCountry(val)} className='w-full text-text-primary' />
                   ) : (
                     <>
                       {userData?.country ? (
-                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal'>
+                        <div className='w-full rounded-xl bg-gray-bg p-[12px] text-[14px] font-normal text-text-primary'>
                           {COUNTRIES.find(a => a.value === userData.country)?.label}
                         </div>
                       ) : (
@@ -498,7 +498,7 @@ const Profile = () => {
               <div className='inline-flex items-center justify-between self-stretch'>
                 <div className='flex items-center justify-start gap-2'>
                   <IconGoogle />
-                  <div className="text-Color-Text-Primary justify-start font-['Inter'] text-sm font-normal leading-tight">
+                  <div className=" text-text-primary justify-start font-['Inter'] text-sm font-normal leading-tight">
                     Google
                   </div>
                 </div>
@@ -529,7 +529,7 @@ const Profile = () => {
               <div className='inline-flex items-center justify-between self-stretch'>
                 <div className='flex items-center justify-start gap-2'>
                   <IconFacebook />
-                  <div className="text-Color-Text-Primary justify-start font-['Inter'] text-sm font-normal leading-tight">
+                  <div className=" text-text-primary justify-start font-['Inter'] text-sm font-normal leading-tight">
                     Facebook
                   </div>
                 </div>
