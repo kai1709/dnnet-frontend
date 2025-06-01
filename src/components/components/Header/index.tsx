@@ -6,9 +6,9 @@ import Link from 'next/link'
 import { Input } from '../ui/input'
 import { ConfigProvider, Dropdown, MenuProps, Switch } from 'antd'
 import IconHome from '../icons/IconHome'
-import { decrypt } from '@/components/lib/utils'
 import { usePathname, useRouter } from 'next/navigation'
 import IconLogout from '../icons/IconLogout'
+import { useUser } from '@/components/components/UserContext'
 
 export type User = {
   id: string
@@ -26,12 +26,15 @@ const themes = ['', 'dark', 'light-1', 'light-2']
 const Header = () => {
   const path = usePathname()
   const router = useRouter()
-  const [userData, setUserData] = useState<User | null>(null)
   const [activeClass, setActiveClass] = useState(false)
   const [theme, setTheme] = useState(Cookies.get('THEME_LAYOUT') || '')
   const scrollCheck = () => {
     setActiveClass(window.scrollY !== 0)
   }
+
+  // @ts-expect-error expected context
+  const { user, setUser } = useUser()
+  const userData = user
 
   useEffect(() => {
     window.addEventListener('scroll', scrollCheck)
@@ -41,25 +44,13 @@ const Header = () => {
     }
   }, [])
 
-  const loadUser = async () => {
-    const cookie = Cookies.get('user')
-    const session = await decrypt(cookie)
-    if (session) {
-      const userData = JSON.parse(session)
-      setUserData(userData)
-    }
-  }
-
   const handleLogout = () => {
     Cookies.remove('user')
-    setUserData(null)
+    setUser(null)
     if (path.includes('profile')) {
       router.push('/')
     }
   }
-  useEffect(() => {
-    loadUser()
-  }, [path])
 
   const userMenu: MenuProps['items'] = [
     {
@@ -132,11 +123,11 @@ const Header = () => {
         >
           <div className='flex cursor-pointer items-center'>
             <img
-              src={userData?.avatar || '/user-avatar-1.png'}
+              src={user?.avatar || '/user-avatar-1.png'}
               className='mr-2 h-[30px] w-[30px]'
               style={{ borderRadius: 45 }}
             />
-            <div className='text-text-primary'>{userData.display_name}</div>
+            <div className='text-text-primary'>{user.display_name}</div>
           </div>
         </Dropdown>
       ) : (

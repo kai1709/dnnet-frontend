@@ -6,12 +6,15 @@ import { Button } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const CommentInput = ({ id }: { id: string }) => {
   const [value, setValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [userData, setUserData] = useState<User | null>(null)
+
+  const router = useRouter()
 
   const loadUser = async () => {
     const cookie = Cookies.get('user')
@@ -39,6 +42,7 @@ const CommentInput = ({ id }: { id: string }) => {
     console.log({ res })
     setIsLoading(false)
     setValue('')
+    router.refresh()
   }
 
   if (!userData) return null
@@ -49,8 +53,10 @@ const CommentInput = ({ id }: { id: string }) => {
       <div className='mb-4 mt-4 flex w-full rounded bg-gray-bg hover:bg-gray-bg'>
         <TextArea
           value={value}
+          placeholder='Chia sẻ ý kiến của bạn'
           onChange={e => setValue(e.target.value)}
           className='border-[0px] bg-gray-bg outline-none hover:bg-gray-bg focus:bg-gray-bg'
+          style={{ height: '80px' }}
         />
       </div>
       <div className='flex'>

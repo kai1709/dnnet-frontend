@@ -35,7 +35,7 @@ const NewsDetail = async ({ params }: any) => {
   const resolvedParams = await params
   const newId = getIdFromSlug(resolvedParams?.id)
   const res: any = await fetcherAPI(
-    `${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name,comments.*,comments.author.*`
+    `${endPoints.getNewsSummaries}/${newId}?fields=*%2Cnews_source.name%2Ccountry.name,comments.*,comments.likes.*,comments.author.*,comments.replies.*,comments.replies.author.*, comments.replies.likes.*`
   )
   console.log({ res })
   const detail = res?.data

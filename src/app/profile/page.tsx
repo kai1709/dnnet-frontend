@@ -4,8 +4,9 @@ import IconFacebook from '@/components/components/icons/IconFacebook'
 import IconGoogle from '@/components/components/icons/IconGoogle'
 import IconLogout from '@/components/components/icons/IconLogout'
 import LoadingWhite from '@/components/components/icons/LoadingWhite'
+import { useUser } from '@/components/components/UserContext'
 import HomeHeader from '@/components/home/HomeHeader'
-import { decrypt, encrypt } from '@/components/lib/utils'
+import { encrypt } from '@/components/lib/utils'
 import { Flex, Input, Radio, Select, Upload, UploadFile, UploadProps } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -72,30 +73,32 @@ const Profile = () => {
   }
   const path = usePathname()
   const router = useRouter()
+
+  // @ts-expect-error expected context
+  const { setUser, user } = useUser()
+
   const loadUser = async () => {
-    const cookie = Cookies.get('user')
-    const session = await decrypt(cookie)
-    if (session) {
-      const userData = JSON.parse(session)
-      setUserData(userData)
-      setFullName(userData.full_name)
-      setDisplayName(userData.display_name)
-      setJobTitle(userData.job_title)
-      setProfileUrl(userData.profile_url)
-      setGender(userData.gender)
-      setMobileNumber(userData.mobile_number)
-      setCountry(userData.country)
-      setPreviewImage(userData.avatar)
+    if (user?.id) {
+      setUserData(user)
+      setFullName(user.full_name)
+      setDisplayName(user.display_name)
+      setJobTitle(user.job_title)
+      setProfileUrl(user.profile_url)
+      setGender(user.gender)
+      setMobileNumber(user.mobile_number)
+      setCountry(user.country)
+      setPreviewImage(user.avatar)
     }
   }
 
   useEffect(() => {
     loadUser()
-  }, [])
+  }, [user?.id])
 
   const handleLogout = () => {
     Cookies.remove('user')
     setUserData(null)
+    setUser(null)
     if (path.includes('profile')) {
       router.push('/')
     }
@@ -136,13 +139,14 @@ const Profile = () => {
       // @ts-expect-error avatar
       body.avatar = null
     }
-    console.log({ body })
     const res = await axios.patch(`/api/user/${userData?.id}`, body)
     const newUserData = res.data.data
     setUserData(newUserData.data)
     const encryptedSessionData = encrypt(newUserData.data)
 
     await Cookies.set('user', encryptedSessionData, { expires: 7 })
+
+    setUser(newUserData)
     setFullName(newUserData.data.full_name)
     setDisplayName(newUserData.data.display_name)
     setJobTitle(newUserData.data.job_title)
@@ -150,14 +154,10 @@ const Profile = () => {
     setGender(newUserData.data.gender)
     setMobileNumber(newUserData.data.mobile_number)
     setCountry(newUserData.data.country)
-    if (isAvatarChanged && fileList.length > 0) {
-      setPreviewImage(newUserData.avatar)
-    }
+    setPreviewImage(newUserData.data.avatar)
     setIsEditting(false)
     setIsloading(false)
   }
-
-  console.log({ userData })
 
   const props = {
     accept: '.png,.jpg,.jpeg',
